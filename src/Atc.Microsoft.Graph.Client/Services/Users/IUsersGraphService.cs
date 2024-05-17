@@ -1,8 +1,8 @@
-namespace Atc.Microsoft.Graph.Client.Services.Teams;
+namespace Atc.Microsoft.Graph.Client.Services.Users;
 
-public interface ITeamsGraphService
+public interface IUsersGraphService
 {
-    Task<(HttpStatusCode StatusCode, IList<Team> Data)> GetTeams(
+    Task<(HttpStatusCode StatusCode, IList<User> Data)> GetUsers(
         List<string>? expandQueryParameters,
         string? filterQueryParameter,
         List<string>? selectQueryParameters,

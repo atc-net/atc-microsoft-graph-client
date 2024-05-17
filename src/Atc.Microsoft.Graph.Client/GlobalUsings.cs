@@ -1,0 +1,10 @@
+global using System.Diagnostics.CodeAnalysis;
+global using System.Net;
+global using System.Runtime.CompilerServices;
+global using Microsoft.Extensions.Logging;
+global using Microsoft.Graph;
+global using Microsoft.Graph.Models;
+global using Microsoft.Graph.Models.ODataErrors;
+global using Microsoft.Kiota.Abstractions;
+global using Polly;
+global using Polly.Retry;
