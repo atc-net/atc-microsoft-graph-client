@@ -7,32 +7,32 @@ public interface IOneDriveGraphService
         List<string>? expandQueryParameters,
         string? filterQueryParameter,
         List<string>? selectQueryParameters,
-        CancellationToken cancellationToken);
+        CancellationToken cancellationToken = default);
 
     Task<Drive?> GetDriveByTeamId(
         string teamId,
-        CancellationToken cancellationToken);
+        CancellationToken cancellationToken = default);
 
     Task<string?> GetDeltaTokenForDriveItemsByDriveId(
         string driveId,
-        CancellationToken cancellationToken);
+        CancellationToken cancellationToken = default);
 
     Task<(HttpStatusCode StatusCode, IList<DriveItem> Data)> GetDriveItemsByDriveId(
         string driveId,
         List<string>? expandQueryParameters,
         string? filterQueryParameter,
         List<string>? selectQueryParameters,
-        CancellationToken cancellationToken);
+        CancellationToken cancellationToken = default);
 
     Task<(HttpStatusCode StatusCode, IList<DriveItem> Data)> GetDriveItemsByDriveIdAndDeltaToken(
         string driveId,
         string deltaToken,
         string? filterQueryParameter,
         List<string>? selectQueryParameters,
-        CancellationToken cancellationToken);
+        CancellationToken cancellationToken = default);
 
     Task<Stream?> DownloadFile(
         string driveId,
         string fileId,
-        CancellationToken cancellationToken);
+        CancellationToken cancellationToken = default);
 }

@@ -13,7 +13,7 @@ public sealed class UsersGraphService : GraphServiceClientWrapper, IUsersGraphSe
         List<string>? expandQueryParameters,
         string? filterQueryParameter,
         List<string>? selectQueryParameters,
-        CancellationToken cancellationToken)
+        CancellationToken cancellationToken = default)
     {
         List<User> pagedItems = [];
         var count = 0;

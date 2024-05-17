@@ -7,7 +7,7 @@ public interface IOutlookGraphService
         List<string>? expandQueryParameters,
         string? filterQueryParameter,
         List<string>? selectQueryParameters,
-        CancellationToken cancellationToken);
+        CancellationToken cancellationToken = default);
 
     Task<(HttpStatusCode StatusCode, IList<MailFolder> Data)> GetMailFoldersByUserIdAndFolderId(
         string userId,
@@ -15,14 +15,14 @@ public interface IOutlookGraphService
         List<string>? expandQueryParameters,
         string? filterQueryParameter,
         List<string>? selectQueryParameters,
-        CancellationToken cancellationToken);
+        CancellationToken cancellationToken = default);
 
     Task<(HttpStatusCode StatusCode, IList<Message> Data)> GetMessagesByUserId(
         string userId,
         List<string>? expandQueryParameters,
         string? filterQueryParameter,
         List<string>? selectQueryParameters,
-        CancellationToken cancellationToken);
+        CancellationToken cancellationToken = default);
 
     Task<(HttpStatusCode StatusCode, IList<Message> Data, string? DeltaToken)> GetMessagesByUserIdAndFolderId(
         string userId,
@@ -30,8 +30,8 @@ public interface IOutlookGraphService
         List<string>? expandQueryParameters,
         string? filterQueryParameter,
         List<string>? selectQueryParameters,
-        CancellationToken cancellationToken,
-        string? deltaToken = null);
+        string? deltaToken = null,
+        CancellationToken cancellationToken = default);
 
     Task<(HttpStatusCode StatusCode, IList<FileAttachment> Data)> GetFileAttachmentsByUserIdAndMessageId(
         string userId,
@@ -39,5 +39,5 @@ public interface IOutlookGraphService
         List<string>? expandQueryParameters,
         string? filterQueryParameter,
         List<string>? selectQueryParameters,
-        CancellationToken cancellationToken);
+        CancellationToken cancellationToken = default);
 }

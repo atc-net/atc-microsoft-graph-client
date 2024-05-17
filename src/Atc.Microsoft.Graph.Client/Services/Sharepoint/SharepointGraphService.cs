@@ -13,7 +13,7 @@ public sealed class SharepointGraphService : GraphServiceClientWrapper, ISharepo
         List<string>? expandQueryParameters,
         string? filterQueryParameter,
         List<string>? selectQueryParameters,
-        CancellationToken cancellationToken)
+        CancellationToken cancellationToken = default)
     {
         List<Site> pagedItems = [];
         var count = 0;

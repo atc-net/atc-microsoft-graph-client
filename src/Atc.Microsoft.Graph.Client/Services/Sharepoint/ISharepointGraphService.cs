@@ -6,5 +6,5 @@ public interface ISharepointGraphService
         List<string>? expandQueryParameters,
         string? filterQueryParameter,
         List<string>? selectQueryParameters,
-        CancellationToken cancellationToken);
+        CancellationToken cancellationToken = default);
 }

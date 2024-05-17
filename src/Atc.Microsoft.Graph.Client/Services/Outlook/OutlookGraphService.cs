@@ -14,7 +14,7 @@ public sealed class OutlookGraphService : GraphServiceClientWrapper, IOutlookGra
         List<string>? expandQueryParameters,
         string? filterQueryParameter,
         List<string>? selectQueryParameters,
-        CancellationToken cancellationToken)
+        CancellationToken cancellationToken = default)
     {
         List<MailFolder> pagedItems = [];
         var count = 0;
@@ -93,7 +93,7 @@ public sealed class OutlookGraphService : GraphServiceClientWrapper, IOutlookGra
         List<string>? expandQueryParameters,
         string? filterQueryParameter,
         List<string>? selectQueryParameters,
-        CancellationToken cancellationToken)
+        CancellationToken cancellationToken = default)
     {
         List<MailFolder> pagedItems = [];
         var count = 0;
@@ -172,7 +172,7 @@ public sealed class OutlookGraphService : GraphServiceClientWrapper, IOutlookGra
         List<string>? expandQueryParameters,
         string? filterQueryParameter,
         List<string>? selectQueryParameters,
-        CancellationToken cancellationToken)
+        CancellationToken cancellationToken = default)
     {
         List<Message> pagedItems = [];
         var count = 0;
@@ -251,8 +251,8 @@ public sealed class OutlookGraphService : GraphServiceClientWrapper, IOutlookGra
         List<string>? expandQueryParameters,
         string? filterQueryParameter,
         List<string>? selectQueryParameters,
-        CancellationToken cancellationToken,
-        string? deltaToken = null)
+        string? deltaToken = null,
+        CancellationToken cancellationToken = default)
     {
         List<Message> pagedItems = [];
 
@@ -292,7 +292,7 @@ public sealed class OutlookGraphService : GraphServiceClientWrapper, IOutlookGra
         List<string>? expandQueryParameters,
         string? filterQueryParameter,
         List<string>? selectQueryParameters,
-        CancellationToken cancellationToken)
+        CancellationToken cancellationToken = default)
     {
         List<FileAttachment> pagedItems = [];
         var count = 0;
@@ -374,7 +374,7 @@ public sealed class OutlookGraphService : GraphServiceClientWrapper, IOutlookGra
         string folderId,
         string? filterQueryParameter,
         List<string>? selectQueryParameters,
-        CancellationToken cancellationToken)
+        CancellationToken cancellationToken = default)
     {
         List<Message> pagedItems = [];
         var count = 0;
@@ -456,7 +456,7 @@ public sealed class OutlookGraphService : GraphServiceClientWrapper, IOutlookGra
         List<string>? expandQueryParameters,
         string? filterQueryParameter,
         List<string>? selectQueryParameters,
-        CancellationToken cancellationToken)
+        CancellationToken cancellationToken = default)
     {
         List<Message> pagedItems = [];
         var count = 0;

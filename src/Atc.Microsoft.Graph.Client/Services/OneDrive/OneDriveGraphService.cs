@@ -14,7 +14,7 @@ public sealed class OneDriveGraphService : GraphServiceClientWrapper, IOneDriveG
         List<string>? expandQueryParameters,
         string? filterQueryParameter,
         List<string>? selectQueryParameters,
-        CancellationToken cancellationToken)
+        CancellationToken cancellationToken = default)
     {
         List<Drive> pagedItems = [];
         var count = 0;
@@ -88,8 +88,8 @@ public sealed class OneDriveGraphService : GraphServiceClientWrapper, IOneDriveG
     }
 
     public async Task<Drive?> GetDriveByTeamId(
-    string teamId,
-    CancellationToken cancellationToken)
+        string teamId,
+        CancellationToken cancellationToken = default)
     {
         try
         {
@@ -120,7 +120,7 @@ public sealed class OneDriveGraphService : GraphServiceClientWrapper, IOneDriveG
 
     public async Task<string?> GetDeltaTokenForDriveItemsByDriveId(
         string driveId,
-        CancellationToken cancellationToken)
+        CancellationToken cancellationToken = default)
     {
         try
         {
@@ -162,7 +162,7 @@ public sealed class OneDriveGraphService : GraphServiceClientWrapper, IOneDriveG
         List<string>? expandQueryParameters,
         string? filterQueryParameter,
         List<string>? selectQueryParameters,
-        CancellationToken cancellationToken)
+        CancellationToken cancellationToken = default)
     {
         var requestInformation = Client
             .Drives[driveId]
@@ -189,7 +189,7 @@ public sealed class OneDriveGraphService : GraphServiceClientWrapper, IOneDriveG
         string deltaToken,
         string? filterQueryParameter,
         List<string>? selectQueryParameters,
-        CancellationToken cancellationToken)
+        CancellationToken cancellationToken = default)
     {
         List<DriveItem> pagedItems = [];
         var count = 0;
@@ -265,7 +265,7 @@ public sealed class OneDriveGraphService : GraphServiceClientWrapper, IOneDriveG
     public async Task<Stream?> DownloadFile(
         string driveId,
         string fileId,
-        CancellationToken cancellationToken)
+        CancellationToken cancellationToken = default)
     {
         try
         {
