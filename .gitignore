@@ -396,3 +396,4 @@ FodyWeavers.xsd
 
 # JetBrains Rider
 *.sln.iml
+sample/Atc.Microsoft.Graph.Client.Sample/appsettings.Development.json
