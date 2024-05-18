@@ -7,4 +7,17 @@ public interface ISharepointGraphService
         string? filterQueryParameter,
         List<string>? selectQueryParameters,
         CancellationToken cancellationToken = default);
+
+    Task<(HttpStatusCode StatusCode, Guid? SubscriptionId)> SetupSubscription(
+        Subscription subscription,
+        CancellationToken cancellationToken = default);
+
+    Task<(HttpStatusCode StatusCode, bool Succeeded)> RenewSubscription(
+        Guid subscriptionId,
+        DateTimeOffset expirationDate,
+        CancellationToken cancellationToken = default);
+
+    Task<(HttpStatusCode StatusCode, bool Succeeded)> DeleteSubscription(
+        Guid subscriptionId,
+        CancellationToken cancellationToken = default);
 }
