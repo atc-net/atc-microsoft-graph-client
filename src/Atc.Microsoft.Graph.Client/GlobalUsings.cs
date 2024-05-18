@@ -9,6 +9,7 @@ global using Atc.Microsoft.Graph.Client.Services.Outlook;
 global using Atc.Microsoft.Graph.Client.Services.Sharepoint;
 global using Atc.Microsoft.Graph.Client.Services.Teams;
 global using Atc.Microsoft.Graph.Client.Services.Users;
+global using Azure.Core;
 global using Azure.Identity;
 global using Microsoft.Extensions.DependencyInjection;
 global using Microsoft.Extensions.Logging;
