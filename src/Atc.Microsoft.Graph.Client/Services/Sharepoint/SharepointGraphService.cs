@@ -89,6 +89,8 @@ public sealed class SharepointGraphService : GraphServiceClientWrapper, ISharepo
         Subscription subscription,
         CancellationToken cancellationToken = default)
     {
+        ArgumentNullException.ThrowIfNull(subscription);
+
         try
         {
             Guid? subscriptionId = null;
