@@ -11,9 +11,9 @@ public sealed class OneDriveGraphService : GraphServiceClientWrapper, IOneDriveG
 
     public async Task<(HttpStatusCode StatusCode, IList<Drive> Data)> GetDrivesBySiteId(
         Guid siteId,
-        List<string>? expandQueryParameters,
-        string? filterQueryParameter,
-        List<string>? selectQueryParameters,
+        List<string>? expandQueryParameters = null,
+        string? filterQueryParameter = null,
+        List<string>? selectQueryParameters = null,
         CancellationToken cancellationToken = default)
     {
         List<Drive> pagedItems = [];
@@ -159,9 +159,9 @@ public sealed class OneDriveGraphService : GraphServiceClientWrapper, IOneDriveG
 
     public async Task<(HttpStatusCode StatusCode, IList<DriveItem> Data)> GetDriveItemsByDriveId(
         string driveId,
-        List<string>? expandQueryParameters,
-        string? filterQueryParameter,
-        List<string>? selectQueryParameters,
+        List<string>? expandQueryParameters = null,
+        string? filterQueryParameter = null,
+        List<string>? selectQueryParameters = null,
         CancellationToken cancellationToken = default)
     {
         var requestInformation = Client
@@ -187,8 +187,8 @@ public sealed class OneDriveGraphService : GraphServiceClientWrapper, IOneDriveG
     public async Task<(HttpStatusCode StatusCode, IList<DriveItem> Data)> GetDriveItemsByDriveIdAndDeltaToken(
         string driveId,
         string deltaToken,
-        string? filterQueryParameter,
-        List<string>? selectQueryParameters,
+        string? filterQueryParameter = null,
+        List<string>? selectQueryParameters = null,
         CancellationToken cancellationToken = default)
     {
         List<DriveItem> pagedItems = [];

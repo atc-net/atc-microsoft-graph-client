@@ -10,9 +10,9 @@ public sealed class SharepointGraphService : GraphServiceClientWrapper, ISharepo
     }
 
     public async Task<(HttpStatusCode StatusCode, IList<Site> Data)> GetSites(
-        List<string>? expandQueryParameters,
-        string? filterQueryParameter,
-        List<string>? selectQueryParameters,
+        List<string>? expandQueryParameters = null,
+        string? filterQueryParameter = null,
+        List<string>? selectQueryParameters = null,
         CancellationToken cancellationToken = default)
     {
         List<Site> pagedItems = [];

@@ -3,9 +3,9 @@ namespace Atc.Microsoft.Graph.Client.Services.Sharepoint;
 public interface ISharepointGraphService
 {
     Task<(HttpStatusCode StatusCode, IList<Site> Data)> GetSites(
-        List<string>? expandQueryParameters,
-        string? filterQueryParameter,
-        List<string>? selectQueryParameters,
+        List<string>? expandQueryParameters = null,
+        string? filterQueryParameter = null,
+        List<string>? selectQueryParameters = null,
         CancellationToken cancellationToken = default);
 
     Task<(HttpStatusCode StatusCode, Guid? SubscriptionId)> SetupSubscription(

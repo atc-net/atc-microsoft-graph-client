@@ -10,9 +10,9 @@ public sealed class TeamsGraphService : GraphServiceClientWrapper, ITeamsGraphSe
     }
 
     public async Task<(HttpStatusCode StatusCode, IList<Team> Data)> GetTeams(
-        List<string>? expandQueryParameters,
-        string? filterQueryParameter,
-        List<string>? selectQueryParameters,
+        List<string>? expandQueryParameters = null,
+        string? filterQueryParameter = null,
+        List<string>? selectQueryParameters = null,
         CancellationToken cancellationToken = default)
     {
         List<Team> pagedItems = [];
