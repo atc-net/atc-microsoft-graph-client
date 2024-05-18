@@ -100,9 +100,15 @@ public static class ServiceCollectionExtensions
         where TService : class
         where TImplementation : GraphServiceClientWrapper, TService
     {
-        services.AddSingleton<TService, TImplementation>(s => (TImplementation)Activator.CreateInstance(
-            typeof(TImplementation),
-            s.GetRequiredService<ILoggerFactory>(),
-            s.GetRequiredService<GraphServiceClient>())!);
+        services.AddSingleton<TService, TImplementation>(s =>
+        {
+            var loggerFactory = s.GetService<ILoggerFactory>() ?? new NullLoggerFactory();
+            var graphServiceClient = s.GetRequiredService<GraphServiceClient>();
+
+            return (TImplementation)Activator.CreateInstance(
+                typeof(TImplementation),
+                loggerFactory,
+                graphServiceClient)!;
+        });
     }
 }
