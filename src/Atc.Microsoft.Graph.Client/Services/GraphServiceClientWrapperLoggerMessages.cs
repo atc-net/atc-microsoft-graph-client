@@ -18,6 +18,37 @@ public abstract partial class GraphServiceClientWrapper
         [CallerLineNumber] int callerLineNumber = 0);
 
     [LoggerMessage(
+        EventId = LoggingEventIdConstants.GraphServiceClientWrapper.SubscriptionSetupFailed,
+        Level = LogLevel.Error,
+        Message = "{callerMethodName}({callerLineNumber}) - Failed to setup subscription for the resource '{resource}': '{errorMessage}'.")]
+    protected partial void LogSubscriptionSetupFailed(
+        string? resource,
+        string? errorMessage,
+        [CallerMemberName] string callerMethodName = "",
+        [CallerLineNumber] int callerLineNumber = 0);
+
+    [LoggerMessage(
+        EventId = LoggingEventIdConstants.GraphServiceClientWrapper.SubscriptionRenewalFailed,
+        Level = LogLevel.Error,
+        Message = "{callerMethodName}({callerLineNumber}) - Failed to renew subscription with id '{subscriptionId}' with expirationDate '{expirationDate}': '{errorMessage}'.")]
+    protected partial void LogSubscriptionRenewalFailed(
+        Guid subscriptionId,
+        DateTimeOffset expirationDate,
+        string? errorMessage,
+        [CallerMemberName] string callerMethodName = "",
+        [CallerLineNumber] int callerLineNumber = 0);
+
+    [LoggerMessage(
+        EventId = LoggingEventIdConstants.GraphServiceClientWrapper.SubscriptionDeletionFailed,
+        Level = LogLevel.Error,
+        Message = "{callerMethodName}({callerLineNumber}) - Failed to delete subscription with id '{subscriptionId}': '{errorMessage}'.")]
+    protected partial void LogSubscriptionDeletionFailed(
+        Guid subscriptionId,
+        string? errorMessage,
+        [CallerMemberName] string callerMethodName = "",
+        [CallerLineNumber] int callerLineNumber = 0);
+
+    [LoggerMessage(
         EventId = LoggingEventIdConstants.GraphServiceClientWrapper.DownloadFileFailed,
         Level = LogLevel.Error,
         Message = "{callerMethodName}({callerLineNumber}) - Failed to download file with id: '{fileId}': '{errorMessage}'.")]
