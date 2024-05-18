@@ -2,6 +2,7 @@ global using System.Diagnostics.CodeAnalysis;
 global using System.Net;
 global using System.Runtime.CompilerServices;
 global using Atc.Microsoft.Graph.Client.Factories;
+global using Atc.Microsoft.Graph.Client.Options;
 global using Atc.Microsoft.Graph.Client.Services;
 global using Azure.Identity;
 global using Microsoft.Extensions.DependencyInjection;
