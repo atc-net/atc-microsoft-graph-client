@@ -2,7 +2,7 @@ namespace Atc.Microsoft.Graph.Client.Extensions;
 
 public static class ServiceCollectionExtensions
 {
-    public static IServiceCollection AddMicrosoftGraphServiceClient(
+    public static IServiceCollection AddMicrosoftGraphServices(
         this IServiceCollection services,
         GraphServiceOptions graphServiceOptions)
     {
@@ -24,9 +24,24 @@ public static class ServiceCollectionExtensions
             return new GraphServiceClient(clientSecretCredential, scopes);
         });
 
-        services.AddSingleton<IGraphServiceClientWrapper>(s => new GraphServiceClientWrapper(
+        services.AddGraphService<IOneDriveGraphService, OneDriveGraphService>();
+        services.AddGraphService<IOutlookGraphService, OutlookGraphService>();
+        services.AddGraphService<ISharepointGraphService, SharepointGraphService>();
+        services.AddGraphService<ITeamsGraphService, TeamsGraphService>();
+        services.AddGraphService<IUsersGraphService, UsersGraphService>();
+
+        return services;
+    }
+
+    private static IServiceCollection AddGraphService<TService, TImplementation>(
+        this IServiceCollection services)
+        where TService : class
+        where TImplementation : GraphServiceClientWrapper, TService
+    {
+        services.AddSingleton<TService, TImplementation>(s => (TImplementation)Activator.CreateInstance(
+            typeof(TImplementation),
             s.GetRequiredService<ILoggerFactory>(),
-            s.GetRequiredService<GraphServiceClient>()));
+            s.GetRequiredService<GraphServiceClient>())!);
 
         return services;
     }
