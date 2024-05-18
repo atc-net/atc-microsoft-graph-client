@@ -6,7 +6,7 @@ public abstract partial class GraphServiceClientWrapper
 
     protected ResiliencePipeline DownloadResiliencePipeline { get; }
 
-    public GraphServiceClientWrapper(
+    protected GraphServiceClientWrapper(
         ILoggerFactory loggerFactory,
         GraphServiceClient client)
     {
