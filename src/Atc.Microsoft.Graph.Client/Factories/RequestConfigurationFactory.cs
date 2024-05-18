@@ -9,7 +9,7 @@ public static class RequestConfigurationFactory
         rc =>
         {
             if (expandQueryParameters is not null &&
-                expandQueryParameters.Any())
+                expandQueryParameters.Count != 0)
             {
                 rc.QueryParameters.Expand = [.. expandQueryParameters];
             }
@@ -20,7 +20,7 @@ public static class RequestConfigurationFactory
             }
 
             if (selectQueryParameters is not null &&
-                selectQueryParameters.Any())
+                selectQueryParameters.Count != 0)
             {
                 rc.QueryParameters.Select = [.. selectQueryParameters];
             }
@@ -33,7 +33,7 @@ public static class RequestConfigurationFactory
         rc =>
         {
             if (expandQueryParameters is not null &&
-                expandQueryParameters.Any())
+                expandQueryParameters.Count != 0)
             {
                 rc.QueryParameters.Expand = [.. expandQueryParameters];
             }
@@ -44,7 +44,7 @@ public static class RequestConfigurationFactory
             }
 
             if (selectQueryParameters is not null &&
-                selectQueryParameters.Any())
+                selectQueryParameters.Count != 0)
             {
                 rc.QueryParameters.Select = [.. selectQueryParameters];
             }
@@ -57,7 +57,7 @@ public static class RequestConfigurationFactory
         rc =>
         {
             if (expandQueryParameters is not null &&
-                expandQueryParameters.Any())
+                expandQueryParameters.Count != 0)
             {
                 rc.QueryParameters.Expand = [.. expandQueryParameters];
             }
@@ -68,7 +68,7 @@ public static class RequestConfigurationFactory
             }
 
             if (selectQueryParameters is not null &&
-                selectQueryParameters.Any())
+                selectQueryParameters.Count != 0)
             {
                 rc.QueryParameters.Select = [.. selectQueryParameters];
             }
@@ -85,7 +85,7 @@ public static class RequestConfigurationFactory
             }
 
             if (selectQueryParameters is not null &&
-                selectQueryParameters.Any())
+                selectQueryParameters.Count != 0)
             {
                 rc.QueryParameters.Select = [.. selectQueryParameters];
             }
@@ -98,7 +98,7 @@ public static class RequestConfigurationFactory
         rc =>
         {
             if (expandQueryParameters is not null &&
-                expandQueryParameters.Any())
+                expandQueryParameters.Count != 0)
             {
                 rc.QueryParameters.Expand = [.. expandQueryParameters];
             }
@@ -109,7 +109,7 @@ public static class RequestConfigurationFactory
             }
 
             if (selectQueryParameters is not null &&
-                selectQueryParameters.Any())
+                selectQueryParameters.Count != 0)
             {
                 rc.QueryParameters.Select = [.. selectQueryParameters];
             }
@@ -122,7 +122,7 @@ public static class RequestConfigurationFactory
         rc =>
         {
             if (expandQueryParameters is not null &&
-                expandQueryParameters.Any())
+                expandQueryParameters.Count != 0)
             {
                 rc.QueryParameters.Expand = [.. expandQueryParameters];
             }
@@ -133,7 +133,7 @@ public static class RequestConfigurationFactory
             }
 
             if (selectQueryParameters is not null &&
-                selectQueryParameters.Any())
+                selectQueryParameters.Count != 0)
             {
                 rc.QueryParameters.Select = [.. selectQueryParameters];
             }
@@ -146,7 +146,7 @@ public static class RequestConfigurationFactory
         rc =>
         {
             if (expandQueryParameters is not null &&
-                expandQueryParameters.Any())
+                expandQueryParameters.Count != 0)
             {
                 rc.QueryParameters.Expand = [.. expandQueryParameters];
             }
@@ -157,7 +157,7 @@ public static class RequestConfigurationFactory
             }
 
             if (selectQueryParameters is not null &&
-                selectQueryParameters.Any())
+                selectQueryParameters.Count != 0)
             {
                 rc.QueryParameters.Select = [.. selectQueryParameters];
             }
@@ -170,7 +170,7 @@ public static class RequestConfigurationFactory
         rc =>
         {
             if (expandQueryParameters is not null &&
-                expandQueryParameters.Any())
+                expandQueryParameters.Count != 0)
             {
                 rc.QueryParameters.Expand = [.. expandQueryParameters];
             }
@@ -181,7 +181,7 @@ public static class RequestConfigurationFactory
             }
 
             if (selectQueryParameters is not null &&
-                selectQueryParameters.Any())
+                selectQueryParameters.Count != 0)
             {
                 rc.QueryParameters.Select = [.. selectQueryParameters];
             }
@@ -198,7 +198,7 @@ public static class RequestConfigurationFactory
             }
 
             if (selectQueryParameters is not null &&
-                selectQueryParameters.Any())
+                selectQueryParameters.Count != 0)
             {
                 rc.QueryParameters.Select = [.. selectQueryParameters];
             }
@@ -211,7 +211,7 @@ public static class RequestConfigurationFactory
         rc =>
         {
             if (expandQueryParameters is not null &&
-                expandQueryParameters.Any())
+                expandQueryParameters.Count != 0)
             {
                 rc.QueryParameters.Expand = [.. expandQueryParameters];
             }
@@ -222,7 +222,7 @@ public static class RequestConfigurationFactory
             }
 
             if (selectQueryParameters is not null &&
-                selectQueryParameters.Any())
+                selectQueryParameters.Count != 0)
             {
                 rc.QueryParameters.Select = [.. selectQueryParameters];
             }
@@ -235,7 +235,7 @@ public static class RequestConfigurationFactory
         rc =>
         {
             if (expandQueryParameters is not null &&
-                expandQueryParameters.Any())
+                expandQueryParameters.Count != 0)
             {
                 rc.QueryParameters.Expand = [.. expandQueryParameters];
             }
@@ -246,7 +246,7 @@ public static class RequestConfigurationFactory
             }
 
             if (selectQueryParameters is not null &&
-                selectQueryParameters.Any())
+                selectQueryParameters.Count != 0)
             {
                 rc.QueryParameters.Select = [.. selectQueryParameters];
             }
@@ -259,7 +259,7 @@ public static class RequestConfigurationFactory
         rc =>
         {
             if (expandQueryParameters is not null &&
-                expandQueryParameters.Any())
+                expandQueryParameters.Count != 0)
             {
                 rc.QueryParameters.Expand = [.. expandQueryParameters];
             }
@@ -270,7 +270,7 @@ public static class RequestConfigurationFactory
             }
 
             if (selectQueryParameters is not null &&
-                selectQueryParameters.Any())
+                selectQueryParameters.Count != 0)
             {
                 rc.QueryParameters.Select = [.. selectQueryParameters];
             }
