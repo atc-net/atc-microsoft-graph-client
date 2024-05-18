@@ -45,3 +45,5 @@
 ##########################################
 # Custom - Code Analyzers Rules
 ##########################################
+
+dotnet_diagnostic.IDE0039.severity = none             #
