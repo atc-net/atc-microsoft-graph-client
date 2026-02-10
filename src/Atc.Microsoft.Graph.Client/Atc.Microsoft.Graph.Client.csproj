@@ -1,7 +1,6 @@
 <Project Sdk="Microsoft.NET.Sdk">
 
   <PropertyGroup>
-    <TargetFramework>net8.0</TargetFramework>
     <PackageId>Atc.Microsoft.Graph.Client</PackageId>
     <PackageTags>microsoft-graph;microsoft-graph-api;microsoft-graph-client</PackageTags>
     <Description>Atc.Microsoft.Graph.Client provides a convenient abstraction layer over the Microsoft Graph SDK, simplifying interactions with Microsoft Graph APIs. By wrapping the Microsoft Graph SDK, the library offers a consistent and simplified interface, handling complexities like paging and error handling for you.</Description>
@@ -13,11 +12,11 @@
   </ItemGroup>
 
   <ItemGroup>
-    <PackageReference Include="Atc" Version="2.0.472" />
-    <PackageReference Include="Azure.Identity" Version="1.11.3" />
-    <PackageReference Include="Microsoft.Extensions.Http.Resilience" Version="8.5.0" />
-    <PackageReference Include="Microsoft.Extensions.Logging" Version="8.0.0" />
-    <PackageReference Include="Microsoft.Graph" Version="5.53.0" />
+    <PackageReference Include="Atc" Version="3.0.18" />
+    <PackageReference Include="Azure.Identity" Version="1.17.1" />
+    <PackageReference Include="Microsoft.Extensions.Http.Resilience" Version="10.3.0" />
+    <PackageReference Include="Microsoft.Extensions.Logging" Version="10.0.3" />
+    <PackageReference Include="Microsoft.Graph" Version="5.102.0" />
   </ItemGroup>
 
 </Project>
