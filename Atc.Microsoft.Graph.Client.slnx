@@ -8,5 +8,7 @@
   <Folder Name="/src/">
     <Project Path="src/Atc.Microsoft.Graph.Client/Atc.Microsoft.Graph.Client.csproj" />
   </Folder>
-  <Folder Name="/test/" />
+  <Folder Name="/test/">
+    <Project Path="test/Atc.Microsoft.Graph.Client.Tests/Atc.Microsoft.Graph.Client.Tests.csproj" />
+  </Folder>
 </Solution>

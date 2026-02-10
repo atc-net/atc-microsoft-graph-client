@@ -1,0 +1,17 @@
+global using System.Net;
+global using Atc.Microsoft.Graph.Client.Extensions;
+global using Atc.Microsoft.Graph.Client.Factories;
+global using Atc.Microsoft.Graph.Client.Options;
+global using Atc.Microsoft.Graph.Client.Services.OneDrive;
+global using Atc.Microsoft.Graph.Client.Services.Outlook;
+global using Atc.Microsoft.Graph.Client.Services.Sharepoint;
+global using Atc.Microsoft.Graph.Client.Services.Teams;
+global using Atc.Microsoft.Graph.Client.Services.Users;
+global using Microsoft.Extensions.DependencyInjection;
+global using Microsoft.Extensions.Logging.Abstractions;
+global using Microsoft.Graph;
+global using Microsoft.Graph.Models;
+global using Microsoft.Graph.Models.ODataErrors;
+global using Microsoft.Kiota.Abstractions;
+global using Microsoft.Kiota.Abstractions.Serialization;
+global using NSubstitute.ExceptionExtensions;
