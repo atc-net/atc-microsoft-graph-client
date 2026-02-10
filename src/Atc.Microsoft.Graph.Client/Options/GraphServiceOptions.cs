@@ -13,5 +13,5 @@ public sealed class GraphServiceOptions
                              !string.IsNullOrEmpty(ClientSecret);
 
     public override string ToString()
-        => $"{nameof(TenantId)}: {TenantId}, {nameof(ClientId)}: {ClientId}, {nameof(ClientSecret)}: {ClientSecret}";
+        => $"{nameof(TenantId)}: {TenantId}, {nameof(ClientId)}: {ClientId}";
 }
