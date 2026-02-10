@@ -56,24 +56,17 @@ public sealed class OutlookGraphService : GraphServiceClientWrapper, IOutlookGra
                     return true;
                 });
 
-            try
-            {
-                await pageIterator.IterateAsync(cancellationToken);
-            }
-            catch (ODataError odataError) when (odataError.ResponseStatusCode == (int)HttpStatusCode.TooManyRequests)
-            {
-                await Task.Delay(MicrosoftGraphConstants.RetryWaitDelayInMs, cancellationToken);
-
-                await pageIterator.IterateAsync(cancellationToken);
-            }
-            catch (ODataError odataError) when (odataError.ResponseStatusCode == (int)HttpStatusCode.Gone)
-            {
-                return (HttpStatusCode.Gone, pagedItems);
-            }
+            await ResiliencePipeline.ExecuteAsync(
+                async ct => await pageIterator.IterateAsync(ct),
+                cancellationToken);
 
             LogPageIteratorTotalCount(nameof(MailFolder), count);
 
             return (HttpStatusCode.OK, pagedItems);
+        }
+        catch (ODataError odataError) when (odataError.ResponseStatusCode == (int)HttpStatusCode.Gone)
+        {
+            return (HttpStatusCode.Gone, pagedItems);
         }
         catch (ODataError odataError)
         {
@@ -136,24 +129,17 @@ public sealed class OutlookGraphService : GraphServiceClientWrapper, IOutlookGra
                     return true;
                 });
 
-            try
-            {
-                await pageIterator.IterateAsync(cancellationToken);
-            }
-            catch (ODataError odataError) when (odataError.ResponseStatusCode == (int)HttpStatusCode.TooManyRequests)
-            {
-                await Task.Delay(MicrosoftGraphConstants.RetryWaitDelayInMs, cancellationToken);
-
-                await pageIterator.IterateAsync(cancellationToken);
-            }
-            catch (ODataError odataError) when (odataError.ResponseStatusCode == (int)HttpStatusCode.Gone)
-            {
-                return (HttpStatusCode.Gone, pagedItems);
-            }
+            await ResiliencePipeline.ExecuteAsync(
+                async ct => await pageIterator.IterateAsync(ct),
+                cancellationToken);
 
             LogPageIteratorTotalCount(nameof(MailFolder), count);
 
             return (HttpStatusCode.OK, pagedItems);
+        }
+        catch (ODataError odataError) when (odataError.ResponseStatusCode == (int)HttpStatusCode.Gone)
+        {
+            return (HttpStatusCode.Gone, pagedItems);
         }
         catch (ODataError odataError)
         {
@@ -214,24 +200,17 @@ public sealed class OutlookGraphService : GraphServiceClientWrapper, IOutlookGra
                     return true;
                 });
 
-            try
-            {
-                await pageIterator.IterateAsync(cancellationToken);
-            }
-            catch (ODataError odataError) when (odataError.ResponseStatusCode == (int)HttpStatusCode.TooManyRequests)
-            {
-                await Task.Delay(MicrosoftGraphConstants.RetryWaitDelayInMs, cancellationToken);
-
-                await pageIterator.IterateAsync(cancellationToken);
-            }
-            catch (ODataError odataError) when (odataError.ResponseStatusCode == (int)HttpStatusCode.Gone)
-            {
-                return (HttpStatusCode.Gone, pagedItems);
-            }
+            await ResiliencePipeline.ExecuteAsync(
+                async ct => await pageIterator.IterateAsync(ct),
+                cancellationToken);
 
             LogPageIteratorTotalCount(nameof(Message), count);
 
             return (HttpStatusCode.OK, pagedItems);
+        }
+        catch (ODataError odataError) when (odataError.ResponseStatusCode == (int)HttpStatusCode.Gone)
+        {
+            return (HttpStatusCode.Gone, pagedItems);
         }
         catch (ODataError odataError)
         {
@@ -338,24 +317,17 @@ public sealed class OutlookGraphService : GraphServiceClientWrapper, IOutlookGra
                     return true;
                 });
 
-            try
-            {
-                await pageIterator.IterateAsync(cancellationToken);
-            }
-            catch (ODataError odataError) when (odataError.ResponseStatusCode == (int)HttpStatusCode.TooManyRequests)
-            {
-                await Task.Delay(MicrosoftGraphConstants.RetryWaitDelayInMs, cancellationToken);
-
-                await pageIterator.IterateAsync(cancellationToken);
-            }
-            catch (ODataError odataError) when (odataError.ResponseStatusCode == (int)HttpStatusCode.Gone)
-            {
-                return (HttpStatusCode.Gone, pagedItems);
-            }
+            await ResiliencePipeline.ExecuteAsync(
+                async ct => await pageIterator.IterateAsync(ct),
+                cancellationToken);
 
             LogPageIteratorTotalCount(nameof(FileAttachment), count);
 
             return (HttpStatusCode.OK, pagedItems);
+        }
+        catch (ODataError odataError) when (odataError.ResponseStatusCode == (int)HttpStatusCode.Gone)
+        {
+            return (HttpStatusCode.Gone, pagedItems);
         }
         catch (ODataError odataError)
         {
@@ -417,13 +389,9 @@ public sealed class OutlookGraphService : GraphServiceClientWrapper, IOutlookGra
 
         try
         {
-            await pageIterator.IterateAsync(cancellationToken);
-        }
-        catch (ODataError odataError) when (odataError.ResponseStatusCode == (int)HttpStatusCode.TooManyRequests)
-        {
-            await Task.Delay(MicrosoftGraphConstants.RetryWaitDelayInMs, cancellationToken);
-
-            await pageIterator.IterateAsync(cancellationToken);
+            await ResiliencePipeline.ExecuteAsync(
+                async ct => await pageIterator.IterateAsync(ct),
+                cancellationToken);
         }
         catch (ODataError odataError) when (odataError.ResponseStatusCode == (int)HttpStatusCode.Gone)
         {
@@ -506,13 +474,9 @@ public sealed class OutlookGraphService : GraphServiceClientWrapper, IOutlookGra
 
         try
         {
-            await pageIterator.IterateAsync(cancellationToken);
-        }
-        catch (ODataError odataError) when (odataError.ResponseStatusCode == (int)HttpStatusCode.TooManyRequests)
-        {
-            await Task.Delay(MicrosoftGraphConstants.RetryWaitDelayInMs, cancellationToken);
-
-            await pageIterator.IterateAsync(cancellationToken);
+            await ResiliencePipeline.ExecuteAsync(
+                async ct => await pageIterator.IterateAsync(ct),
+                cancellationToken);
         }
         catch (ODataError odataError) when (odataError.ResponseStatusCode == (int)HttpStatusCode.Gone)
         {

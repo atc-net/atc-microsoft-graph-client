@@ -11,7 +11,7 @@ internal static class LoggingEventIdConstants
         public const int SubscriptionDeletionFailed = 10_102;
 
         public const int DownloadFileFailed = 10_200;
-        public const int DownloadFileRetrying = 10_201;
+        public const int Retrying = 10_201;
         public const int DownloadFileEmpty = 10_202;
 
         public const int DeltaLinkNotFoundForDrive = 10_300;

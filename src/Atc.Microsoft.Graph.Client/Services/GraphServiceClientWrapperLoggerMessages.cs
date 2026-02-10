@@ -49,11 +49,13 @@ public abstract partial class GraphServiceClientWrapper
         string? errorMessage);
 
     [LoggerMessage(
-        EventId = LoggingEventIdConstants.GraphServiceClientWrapper.DownloadFileRetrying,
+        EventId = LoggingEventIdConstants.GraphServiceClientWrapper.Retrying,
         Level = LogLevel.Warning,
-        Message = "Retrying download of file: '{ErrorMessage}'.")]
-    protected partial void LogDownloadFileRetrying(
-        string? errorMessage);
+        Message = "Retry attempt {AttemptNumber} after {RetryDelay}: '{ErrorMessage}'.")]
+    protected partial void LogRetrying(
+        string? errorMessage,
+        int attemptNumber,
+        TimeSpan retryDelay);
 
     [LoggerMessage(
         EventId = LoggingEventIdConstants.GraphServiceClientWrapper.DownloadFileEmpty,

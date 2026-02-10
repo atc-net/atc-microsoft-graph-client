@@ -54,24 +54,17 @@ public sealed class TeamsGraphService : GraphServiceClientWrapper, ITeamsGraphSe
                     return true;
                 });
 
-            try
-            {
-                await pageIterator.IterateAsync(cancellationToken);
-            }
-            catch (ODataError odataError) when (odataError.ResponseStatusCode == (int)HttpStatusCode.TooManyRequests)
-            {
-                await Task.Delay(MicrosoftGraphConstants.RetryWaitDelayInMs, cancellationToken);
-
-                await pageIterator.IterateAsync(cancellationToken);
-            }
-            catch (ODataError odataError) when (odataError.ResponseStatusCode == (int)HttpStatusCode.Gone)
-            {
-                return (HttpStatusCode.Gone, pagedItems);
-            }
+            await ResiliencePipeline.ExecuteAsync(
+                async ct => await pageIterator.IterateAsync(ct),
+                cancellationToken);
 
             LogPageIteratorTotalCount(nameof(Team), count);
 
             return (HttpStatusCode.OK, pagedItems);
+        }
+        catch (ODataError odataError) when (odataError.ResponseStatusCode == (int)HttpStatusCode.Gone)
+        {
+            return (HttpStatusCode.Gone, pagedItems);
         }
         catch (ODataError odataError)
         {
