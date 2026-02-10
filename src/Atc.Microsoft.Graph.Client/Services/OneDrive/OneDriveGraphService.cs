@@ -176,10 +176,10 @@ public sealed class OneDriveGraphService : GraphServiceClientWrapper, IOneDriveG
 
         var (httpStatusCode, data) = await GetAllListItemsByDriveId(requestInformation, cancellationToken);
 
-        var driveItems = data
+        var driveItems = await data
             .Where(x => x.DriveItem is not null)
             .Select(x => x.DriveItem!)
-            .ToList();
+            .ToListAsync(cancellationToken);
 
         return (httpStatusCode, driveItems);
     }
