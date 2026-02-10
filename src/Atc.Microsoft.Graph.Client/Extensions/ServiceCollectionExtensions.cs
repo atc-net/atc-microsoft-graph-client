@@ -37,6 +37,8 @@ public static class ServiceCollectionExtensions
         TokenCredential tokenCredential,
         string[]? scopes = null)
     {
+        ArgumentNullException.ThrowIfNull(tokenCredential);
+
         services.AddSingleton(_ => new GraphServiceClient(tokenCredential, scopes ?? DefaultScopes));
 
         RegisterGraphServices(services);
@@ -87,27 +89,29 @@ public static class ServiceCollectionExtensions
 
     private static void RegisterGraphServices(IServiceCollection services)
     {
-        services.AddGraphService<IOneDriveGraphService, OneDriveGraphService>();
-        services.AddGraphService<IOutlookGraphService, OutlookGraphService>();
-        services.AddGraphService<ISharepointGraphService, SharepointGraphService>();
-        services.AddGraphService<ITeamsGraphService, TeamsGraphService>();
-        services.AddGraphService<IUsersGraphService, UsersGraphService>();
+        services.AddGraphService<IOneDriveGraphService, OneDriveGraphService>(
+            (loggerFactory, graphServiceClient) => new OneDriveGraphService(loggerFactory, graphServiceClient));
+        services.AddGraphService<IOutlookGraphService, OutlookGraphService>(
+            (loggerFactory, graphServiceClient) => new OutlookGraphService(loggerFactory, graphServiceClient));
+        services.AddGraphService<ISharepointGraphService, SharepointGraphService>(
+            (loggerFactory, graphServiceClient) => new SharepointGraphService(loggerFactory, graphServiceClient));
+        services.AddGraphService<ITeamsGraphService, TeamsGraphService>(
+            (loggerFactory, graphServiceClient) => new TeamsGraphService(loggerFactory, graphServiceClient));
+        services.AddGraphService<IUsersGraphService, UsersGraphService>(
+            (loggerFactory, graphServiceClient) => new UsersGraphService(loggerFactory, graphServiceClient));
     }
 
     private static void AddGraphService<TService, TImplementation>(
-        this IServiceCollection services)
+        this IServiceCollection services,
+        Func<ILoggerFactory, GraphServiceClient, TImplementation> factory)
         where TService : class
         where TImplementation : GraphServiceClientWrapper, TService
     {
-        services.AddSingleton<TService, TImplementation>(s =>
+        services.AddSingleton<TService>(s =>
         {
             var loggerFactory = s.GetService<ILoggerFactory>() ?? new NullLoggerFactory();
             var graphServiceClient = s.GetRequiredService<GraphServiceClient>();
-
-            return (TImplementation)Activator.CreateInstance(
-                typeof(TImplementation),
-                loggerFactory,
-                graphServiceClient)!;
+            return factory(loggerFactory, graphServiceClient);
         });
     }
 }
