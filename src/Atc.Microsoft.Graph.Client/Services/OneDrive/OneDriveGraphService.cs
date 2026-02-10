@@ -80,7 +80,7 @@ public sealed class OneDriveGraphService : GraphServiceClientWrapper, IOneDriveG
         }
     }
 
-    public async Task<Drive?> GetDriveByTeamId(
+    public async Task<(HttpStatusCode StatusCode, Drive? Data)> GetDriveByTeamId(
         string teamId,
         CancellationToken cancellationToken = default)
     {
@@ -93,25 +93,25 @@ public sealed class OneDriveGraphService : GraphServiceClientWrapper, IOneDriveG
 
             if (drive is not null)
             {
-                return drive;
+                return (HttpStatusCode.OK, drive);
             }
 
             LogDriveNotFoundForTeam(teamId, errorMessage: null);
-            return null;
+            return (HttpStatusCode.NotFound, null);
         }
         catch (ODataError odataError)
         {
             LogDriveNotFoundForTeam(teamId, odataError.Error?.Message);
-            return null;
+            return (HttpStatusCode.InternalServerError, null);
         }
         catch (Exception ex)
         {
             LogGetFailure(ex.GetLastInnerMessage());
-            return null;
+            return (HttpStatusCode.InternalServerError, null);
         }
     }
 
-    public async Task<string?> GetDeltaTokenForDriveItemsByDriveId(
+    public async Task<(HttpStatusCode StatusCode, string? Data)> GetDeltaTokenForDriveItemsByDriveId(
         string driveId,
         CancellationToken cancellationToken = default)
     {
@@ -126,27 +126,27 @@ public sealed class OneDriveGraphService : GraphServiceClientWrapper, IOneDriveG
             if (deltaWithTokenResponse?.OdataDeltaLink is null)
             {
                 LogDeltaLinkNotFoundForDrive(driveId, errorMessage: null);
-                return null;
+                return (HttpStatusCode.InternalServerError, null);
             }
 
             var sa = deltaWithTokenResponse.OdataDeltaLink.Split("token='", StringSplitOptions.RemoveEmptyEntries);
             if (sa.Length == 2)
             {
-                return sa[1].Replace("')", string.Empty, StringComparison.OrdinalIgnoreCase);
+                return (HttpStatusCode.OK, sa[1].Replace("')", string.Empty, StringComparison.OrdinalIgnoreCase));
             }
 
             LogDeltaLinkNotFoundForDrive(driveId, errorMessage: null);
-            return null;
+            return (HttpStatusCode.InternalServerError, null);
         }
         catch (ODataError odataError)
         {
             LogDeltaLinkNotFoundForDrive(driveId, odataError.Error?.Message);
-            return null;
+            return (HttpStatusCode.InternalServerError, null);
         }
         catch (Exception ex)
         {
             LogGetFailure(ex.GetLastInnerMessage());
-            return null;
+            return (HttpStatusCode.InternalServerError, null);
         }
     }
 
