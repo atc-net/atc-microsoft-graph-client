@@ -56,24 +56,17 @@ public sealed class OneDriveGraphService : GraphServiceClientWrapper, IOneDriveG
                     return true;
                 });
 
-            try
-            {
-                await pageIterator.IterateAsync(cancellationToken);
-            }
-            catch (ODataError odataError) when (odataError.ResponseStatusCode == (int)HttpStatusCode.TooManyRequests)
-            {
-                await Task.Delay(MicrosoftGraphConstants.RetryWaitDelayInMs, cancellationToken);
-
-                await pageIterator.IterateAsync(cancellationToken);
-            }
-            catch (ODataError odataError) when (odataError.ResponseStatusCode == (int)HttpStatusCode.Gone)
-            {
-                return (HttpStatusCode.Gone, pagedItems);
-            }
+            await ResiliencePipeline.ExecuteAsync(
+                async ct => await pageIterator.IterateAsync(ct),
+                cancellationToken);
 
             LogPageIteratorTotalCount(nameof(Drive), count);
 
             return (HttpStatusCode.OK, pagedItems);
+        }
+        catch (ODataError odataError) when (odataError.ResponseStatusCode == (int)HttpStatusCode.Gone)
+        {
+            return (HttpStatusCode.Gone, pagedItems);
         }
         catch (ODataError odataError)
         {
@@ -231,24 +224,17 @@ public sealed class OneDriveGraphService : GraphServiceClientWrapper, IOneDriveG
                     return true;
                 });
 
-            try
-            {
-                await pageIterator.IterateAsync(cancellationToken);
-            }
-            catch (ODataError odataError) when (odataError.ResponseStatusCode == (int)HttpStatusCode.TooManyRequests)
-            {
-                await Task.Delay(MicrosoftGraphConstants.RetryWaitDelayInMs, cancellationToken);
-
-                await pageIterator.IterateAsync(cancellationToken);
-            }
-            catch (ODataError odataError) when (odataError.ResponseStatusCode == (int)HttpStatusCode.Gone)
-            {
-                return (HttpStatusCode.Gone, pagedItems);
-            }
+            await ResiliencePipeline.ExecuteAsync(
+                async ct => await pageIterator.IterateAsync(ct),
+                cancellationToken);
 
             LogPageIteratorTotalCount(nameof(DriveItem), count);
 
             return (HttpStatusCode.OK, pagedItems);
+        }
+        catch (ODataError odataError) when (odataError.ResponseStatusCode == (int)HttpStatusCode.Gone)
+        {
+            return (HttpStatusCode.Gone, pagedItems);
         }
         catch (ODataError odataError)
         {
@@ -269,7 +255,7 @@ public sealed class OneDriveGraphService : GraphServiceClientWrapper, IOneDriveG
     {
         try
         {
-            return await DownloadResiliencePipeline.ExecuteAsync(
+            return await ResiliencePipeline.ExecuteAsync(
                 async context =>
                 {
                     var stream = await Client
@@ -329,24 +315,17 @@ public sealed class OneDriveGraphService : GraphServiceClientWrapper, IOneDriveG
                     return true;
                 });
 
-            try
-            {
-                await pageIterator.IterateAsync(cancellationToken);
-            }
-            catch (ODataError odataError) when (odataError.ResponseStatusCode == (int)HttpStatusCode.TooManyRequests)
-            {
-                await Task.Delay(MicrosoftGraphConstants.RetryWaitDelayInMs, cancellationToken);
-
-                await pageIterator.IterateAsync(cancellationToken);
-            }
-            catch (ODataError odataError) when (odataError.ResponseStatusCode == (int)HttpStatusCode.Gone)
-            {
-                return (HttpStatusCode.Gone, pagedItems);
-            }
+            await ResiliencePipeline.ExecuteAsync(
+                async ct => await pageIterator.IterateAsync(ct),
+                cancellationToken);
 
             LogPageIteratorTotalCount(nameof(ListItem), count);
 
             return (HttpStatusCode.OK, pagedItems);
+        }
+        catch (ODataError odataError) when (odataError.ResponseStatusCode == (int)HttpStatusCode.Gone)
+        {
+            return (HttpStatusCode.Gone, pagedItems);
         }
         catch (ODataError odataError)
         {

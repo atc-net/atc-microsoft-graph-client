@@ -54,24 +54,17 @@ public sealed class SharepointGraphService : GraphServiceClientWrapper, ISharepo
                     return true;
                 });
 
-            try
-            {
-                await pageIterator.IterateAsync(cancellationToken);
-            }
-            catch (ODataError odataError) when (odataError.ResponseStatusCode == (int)HttpStatusCode.TooManyRequests)
-            {
-                await Task.Delay(MicrosoftGraphConstants.RetryWaitDelayInMs, cancellationToken);
-
-                await pageIterator.IterateAsync(cancellationToken);
-            }
-            catch (ODataError odataError) when (odataError.ResponseStatusCode == (int)HttpStatusCode.Gone)
-            {
-                return (HttpStatusCode.Gone, pagedItems);
-            }
+            await ResiliencePipeline.ExecuteAsync(
+                async ct => await pageIterator.IterateAsync(ct),
+                cancellationToken);
 
             LogPageIteratorTotalCount(nameof(Site), count);
 
             return (HttpStatusCode.OK, pagedItems);
+        }
+        catch (ODataError odataError) when (odataError.ResponseStatusCode == (int)HttpStatusCode.Gone)
+        {
+            return (HttpStatusCode.Gone, pagedItems);
         }
         catch (ODataError odataError)
         {
@@ -95,7 +88,7 @@ public sealed class SharepointGraphService : GraphServiceClientWrapper, ISharepo
         {
             Guid? subscriptionId = null;
 
-            await DownloadResiliencePipeline.ExecuteAsync(
+            await ResiliencePipeline.ExecuteAsync(
                 async context =>
                 {
                     var graphSubscription = await Client.Subscriptions
