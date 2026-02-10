@@ -15,10 +15,10 @@ public static class ServiceCollectionExtensions
         this IServiceCollection services,
         GraphServiceClient? graphServiceClient = null)
     {
-        Func<IServiceProvider, GraphServiceClient> factory = (serviceProvider)
-            => graphServiceClient ?? serviceProvider.GetRequiredService<GraphServiceClient>();
-
-        services.AddSingleton(factory);
+        if (graphServiceClient is not null)
+        {
+            services.AddSingleton(graphServiceClient);
+        }
 
         RegisterGraphServices(services);
 
