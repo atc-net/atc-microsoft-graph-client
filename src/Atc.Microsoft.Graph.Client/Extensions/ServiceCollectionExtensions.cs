@@ -3,7 +3,7 @@ namespace Atc.Microsoft.Graph.Client.Extensions;
 
 public static class ServiceCollectionExtensions
 {
-    private static readonly string[] DefaultScopes = { "https://graph.microsoft.com/.default" };
+    private static readonly string[] DefaultScopes = ["https://graph.microsoft.com/.default"];
 
     /// <summary>
     /// Adds the <see cref="GraphServiceClient"/> to the service collection.
@@ -85,8 +85,7 @@ public static class ServiceCollectionExtensions
         return services;
     }
 
-    private static void RegisterGraphServices(
-        IServiceCollection services)
+    private static void RegisterGraphServices(IServiceCollection services)
     {
         services.AddGraphService<IOneDriveGraphService, OneDriveGraphService>();
         services.AddGraphService<IOutlookGraphService, OutlookGraphService>();
