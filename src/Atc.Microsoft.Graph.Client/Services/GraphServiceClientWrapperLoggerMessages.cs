@@ -11,108 +11,86 @@ public abstract partial class GraphServiceClientWrapper
     [LoggerMessage(
         EventId = LoggingEventIdConstants.GraphServiceClientWrapper.GetFailure,
         Level = LogLevel.Error,
-        Message = "{callerMethodName}({callerLineNumber}) - Failed to retrieve data: '{errorMessage}'.")]
+        Message = "Failed to retrieve data: '{ErrorMessage}'.")]
     protected partial void LogGetFailure(
-        string? errorMessage,
-        [CallerMemberName] string callerMethodName = "",
-        [CallerLineNumber] int callerLineNumber = 0);
+        string? errorMessage);
 
     [LoggerMessage(
         EventId = LoggingEventIdConstants.GraphServiceClientWrapper.SubscriptionSetupFailed,
         Level = LogLevel.Error,
-        Message = "{callerMethodName}({callerLineNumber}) - Failed to setup subscription for the resource '{resource}': '{errorMessage}'.")]
+        Message = "Failed to setup subscription for the resource '{Resource}': '{ErrorMessage}'.")]
     protected partial void LogSubscriptionSetupFailed(
         string? resource,
-        string? errorMessage,
-        [CallerMemberName] string callerMethodName = "",
-        [CallerLineNumber] int callerLineNumber = 0);
+        string? errorMessage);
 
     [LoggerMessage(
         EventId = LoggingEventIdConstants.GraphServiceClientWrapper.SubscriptionRenewalFailed,
         Level = LogLevel.Error,
-        Message = "{callerMethodName}({callerLineNumber}) - Failed to renew subscription with id '{subscriptionId}' with expirationDate '{expirationDate}': '{errorMessage}'.")]
+        Message = "Failed to renew subscription with id '{SubscriptionId}' with expirationDate '{ExpirationDate}': '{ErrorMessage}'.")]
     protected partial void LogSubscriptionRenewalFailed(
         Guid subscriptionId,
         DateTimeOffset expirationDate,
-        string? errorMessage,
-        [CallerMemberName] string callerMethodName = "",
-        [CallerLineNumber] int callerLineNumber = 0);
+        string? errorMessage);
 
     [LoggerMessage(
         EventId = LoggingEventIdConstants.GraphServiceClientWrapper.SubscriptionDeletionFailed,
         Level = LogLevel.Error,
-        Message = "{callerMethodName}({callerLineNumber}) - Failed to delete subscription with id '{subscriptionId}': '{errorMessage}'.")]
+        Message = "Failed to delete subscription with id '{SubscriptionId}': '{ErrorMessage}'.")]
     protected partial void LogSubscriptionDeletionFailed(
         Guid subscriptionId,
-        string? errorMessage,
-        [CallerMemberName] string callerMethodName = "",
-        [CallerLineNumber] int callerLineNumber = 0);
+        string? errorMessage);
 
     [LoggerMessage(
         EventId = LoggingEventIdConstants.GraphServiceClientWrapper.DownloadFileFailed,
         Level = LogLevel.Error,
-        Message = "{callerMethodName}({callerLineNumber}) - Failed to download file with id: '{fileId}': '{errorMessage}'.")]
+        Message = "Failed to download file with id: '{FileId}': '{ErrorMessage}'.")]
     protected partial void LogDownloadFileFailed(
         string fileId,
-        string? errorMessage,
-        [CallerMemberName] string callerMethodName = "",
-        [CallerLineNumber] int callerLineNumber = 0);
+        string? errorMessage);
 
     [LoggerMessage(
         EventId = LoggingEventIdConstants.GraphServiceClientWrapper.DownloadFileRetrying,
         Level = LogLevel.Warning,
-        Message = "{callerMethodName}({callerLineNumber}) - Retrying download of file: '{errorMessage}'.")]
+        Message = "Retrying download of file: '{ErrorMessage}'.")]
     protected partial void LogDownloadFileRetrying(
-        string? errorMessage,
-        [CallerMemberName] string callerMethodName = "",
-        [CallerLineNumber] int callerLineNumber = 0);
+        string? errorMessage);
 
     [LoggerMessage(
         EventId = LoggingEventIdConstants.GraphServiceClientWrapper.DownloadFileEmpty,
         Level = LogLevel.Warning,
-        Message = "{callerMethodName}({callerLineNumber}) - File to download is empty - id: '{fileId}'.")]
+        Message = "File to download is empty - id: '{FileId}'.")]
     protected partial void LogDownloadFileEmpty(
-        string fileId,
-        [CallerMemberName] string callerMethodName = "",
-        [CallerLineNumber] int callerLineNumber = 0);
+        string fileId);
 
     [LoggerMessage(
         EventId = LoggingEventIdConstants.GraphServiceClientWrapper.DeltaLinkNotFoundForDrive,
         Level = LogLevel.Warning,
-        Message = "{callerMethodName}({callerLineNumber}) - Could not find Delta Link for drive with id: '{driveId}': '{errorMessage}'.")]
+        Message = "Could not find Delta Link for drive with id: '{DriveId}': '{ErrorMessage}'.")]
     protected partial void LogDeltaLinkNotFoundForDrive(
         string driveId,
-        string? errorMessage,
-        [CallerMemberName] string callerMethodName = "",
-        [CallerLineNumber] int callerLineNumber = 0);
+        string? errorMessage);
 
     [LoggerMessage(
         EventId = LoggingEventIdConstants.GraphServiceClientWrapper.DriveNotFoundForTeam,
         Level = LogLevel.Warning,
-        Message = "{callerMethodName}({callerLineNumber}) - Could not find drive for team with id: '{teamId}': '{errorMessage}'.")]
+        Message = "Could not find drive for team with id: '{TeamId}': '{ErrorMessage}'.")]
     protected partial void LogDriveNotFoundForTeam(
         string teamId,
-        string? errorMessage,
-        [CallerMemberName] string callerMethodName = "",
-        [CallerLineNumber] int callerLineNumber = 0);
+        string? errorMessage);
 
     [LoggerMessage(
         EventId = LoggingEventIdConstants.GraphServiceClientWrapper.PageIteratorCount,
         Level = LogLevel.Debug,
-        Message = "{callerMethodName}({callerLineNumber}) - {area} Iterator processed {count} items.")]
+        Message = "{Area} Iterator processed {Count} items.")]
     protected partial void LogPageIteratorCount(
         string area,
-        int count,
-        [CallerMemberName] string callerMethodName = "",
-        [CallerLineNumber] int callerLineNumber = 0);
+        int count);
 
     [LoggerMessage(
         EventId = LoggingEventIdConstants.GraphServiceClientWrapper.PageIteratorTotalCount,
         Level = LogLevel.Debug,
-        Message = "{callerMethodName}({callerLineNumber}) - {area} Iterator processed a total of {count} items.")]
+        Message = "{Area} Iterator processed a total of {Count} items.")]
     protected partial void LogPageIteratorTotalCount(
         string area,
-        int count,
-        [CallerMemberName] string callerMethodName = "",
-        [CallerLineNumber] int callerLineNumber = 0);
+        int count);
 }
