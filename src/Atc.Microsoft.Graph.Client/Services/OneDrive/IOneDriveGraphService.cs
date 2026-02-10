@@ -9,11 +9,11 @@ public interface IOneDriveGraphService
         List<string>? selectQueryParameters = null,
         CancellationToken cancellationToken = default);
 
-    Task<Drive?> GetDriveByTeamId(
+    Task<(HttpStatusCode StatusCode, Drive? Data)> GetDriveByTeamId(
         string teamId,
         CancellationToken cancellationToken = default);
 
-    Task<string?> GetDeltaTokenForDriveItemsByDriveId(
+    Task<(HttpStatusCode StatusCode, string? Data)> GetDeltaTokenForDriveItemsByDriveId(
         string driveId,
         CancellationToken cancellationToken = default);
 
