@@ -1,4 +1,4 @@
-# Introduction
+# 📊 Introduction
 
 The library provides a convenient abstraction layer over the Microsoft Graph SDK, simplifying interactions with Microsoft Graph APIs. By wrapping the Microsoft Graph SDK, the library offers a consistent and simplified interface, handling complexities like paging and error handling for you.
 
@@ -40,9 +40,9 @@ The `IOutlookGraphService` is essential for applications that need to manage and
 
 The `ISharepointGraphService` is essential for applications that need to manage SharePoint sites and subscriptions effectively. It provides capabilities for retrieving site information, setting up and managing subscriptions, and handling subscription renewals and deletions, ensuring robust and efficient integration of SharePoint functionalities within the application's environment.
 
-### `TeamsGraphService`
+### TeamsGraphService
 
-The ITeamsGraphService is essential for applications that need to retrieve and manage information about Teams. It allows for efficient querying of Teams data, enhancing collaboration and communication capabilities within the application's ecosystem.
+The `ITeamsGraphService` is essential for applications that need to retrieve and manage information about Teams. It allows for efficient querying of Teams data, enhancing collaboration and communication capabilities within the application's ecosystem.
 
 ### UsersGraphService
 
@@ -84,15 +84,15 @@ public void ConfigureServices(IServiceCollection services)
 }
 ```
 
-# Sample Project
+# 🚀 Sample Project
 
 A [sample](sample/Atc.Microsoft.Graph.Client.Sample/Program.cs) is included, demonstrating how to configure and use the Microsoft Graph services.
 
-# Requirements
+# ⚙️ Requirements
 
-* [.NET 8 SDK](https://dotnet.microsoft.com/en-us/download/dotnet/8.0)
+* [.NET 10 SDK](https://dotnet.microsoft.com/en-us/download/dotnet/10.0)
 
-# How to contribute
+# 🤝 How to contribute
 
 [Contribution Guidelines](https://atc-net.github.io/introduction/about-atc#how-to-contribute)
 
