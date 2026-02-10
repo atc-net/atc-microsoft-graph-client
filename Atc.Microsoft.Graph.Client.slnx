@@ -1,0 +1,12 @@
+<Solution>
+  <Folder Name="/docs/">
+    <File Path="README.md" />
+  </Folder>
+  <Folder Name="/sample/">
+    <Project Path="sample/Atc.Microsoft.Graph.Client.Sample/Atc.Microsoft.Graph.Client.Sample.csproj" />
+  </Folder>
+  <Folder Name="/src/">
+    <Project Path="src/Atc.Microsoft.Graph.Client/Atc.Microsoft.Graph.Client.csproj" />
+  </Folder>
+  <Folder Name="/test/" />
+</Solution>
