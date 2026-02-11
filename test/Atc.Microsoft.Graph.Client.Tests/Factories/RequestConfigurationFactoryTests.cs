@@ -172,4 +172,54 @@ public sealed class RequestConfigurationFactoryTests
         // Assert
         action.Should().NotBeNull();
     }
+
+    [Fact]
+    public void CreateForContacts_WithNullParameters_ReturnsAction()
+    {
+        // Act
+        var action = RequestConfigurationFactory.CreateForContacts(
+            expandQueryParameters: null,
+            filterQueryParameter: null,
+            selectQueryParameters: null);
+
+        // Assert
+        action.Should().NotBeNull();
+    }
+
+    [Fact]
+    public void CreateForContactById_WithNullParameters_ReturnsAction()
+    {
+        // Act
+        var action = RequestConfigurationFactory.CreateForContactById(
+            expandQueryParameters: null,
+            selectQueryParameters: null);
+
+        // Assert
+        action.Should().NotBeNull();
+    }
+
+    [Fact]
+    public void CreateForOnlineMeetings_WithNullParameters_ReturnsAction()
+    {
+        // Act
+        var action = RequestConfigurationFactory.CreateForOnlineMeetings(
+            expandQueryParameters: null,
+            filterQueryParameter: null,
+            selectQueryParameters: null);
+
+        // Assert
+        action.Should().NotBeNull();
+    }
+
+    [Fact]
+    public void CreateForOnlineMeetingById_WithNullParameters_ReturnsAction()
+    {
+        // Act
+        var action = RequestConfigurationFactory.CreateForOnlineMeetingById(
+            expandQueryParameters: null,
+            selectQueryParameters: null);
+
+        // Assert
+        action.Should().NotBeNull();
+    }
 }

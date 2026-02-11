@@ -15,10 +15,14 @@ public sealed class ServiceCollectionExtensionsTests
 
         // Assert
         services.Should().Contain(sd => sd.ServiceType == typeof(ICalendarGraphService));
+        services.Should().Contain(sd => sd.ServiceType == typeof(IContactsGraphService));
         services.Should().Contain(sd => sd.ServiceType == typeof(IGroupsGraphService));
         services.Should().Contain(sd => sd.ServiceType == typeof(IOneDriveGraphService));
+        services.Should().Contain(sd => sd.ServiceType == typeof(IOnlineMeetingsGraphService));
         services.Should().Contain(sd => sd.ServiceType == typeof(IOutlookGraphService));
+        services.Should().Contain(sd => sd.ServiceType == typeof(ISearchGraphService));
         services.Should().Contain(sd => sd.ServiceType == typeof(ISharepointGraphService));
+        services.Should().Contain(sd => sd.ServiceType == typeof(ISubscriptionsGraphService));
         services.Should().Contain(sd => sd.ServiceType == typeof(ITeamsGraphService));
         services.Should().Contain(sd => sd.ServiceType == typeof(IUsersGraphService));
     }
@@ -39,10 +43,14 @@ public sealed class ServiceCollectionExtensionsTests
         [
             typeof(GraphServiceClient),
             typeof(ICalendarGraphService),
+            typeof(IContactsGraphService),
             typeof(IGroupsGraphService),
             typeof(IOneDriveGraphService),
+            typeof(IOnlineMeetingsGraphService),
             typeof(IOutlookGraphService),
+            typeof(ISearchGraphService),
             typeof(ISharepointGraphService),
+            typeof(ISubscriptionsGraphService),
             typeof(ITeamsGraphService),
             typeof(IUsersGraphService),
         ];
@@ -70,10 +78,14 @@ public sealed class ServiceCollectionExtensionsTests
         // Assert
         using var provider = services.BuildServiceProvider();
         provider.GetRequiredService<ICalendarGraphService>().Should().NotBeNull();
+        provider.GetRequiredService<IContactsGraphService>().Should().NotBeNull();
         provider.GetRequiredService<IGroupsGraphService>().Should().NotBeNull();
         provider.GetRequiredService<IOneDriveGraphService>().Should().NotBeNull();
+        provider.GetRequiredService<IOnlineMeetingsGraphService>().Should().NotBeNull();
         provider.GetRequiredService<IOutlookGraphService>().Should().NotBeNull();
+        provider.GetRequiredService<ISearchGraphService>().Should().NotBeNull();
         provider.GetRequiredService<ISharepointGraphService>().Should().NotBeNull();
+        provider.GetRequiredService<ISubscriptionsGraphService>().Should().NotBeNull();
         provider.GetRequiredService<ITeamsGraphService>().Should().NotBeNull();
         provider.GetRequiredService<IUsersGraphService>().Should().NotBeNull();
     }
@@ -94,10 +106,14 @@ public sealed class ServiceCollectionExtensionsTests
         // Assert
         using var provider = services.BuildServiceProvider();
         provider.GetRequiredService<ICalendarGraphService>().Should().NotBeNull();
+        provider.GetRequiredService<IContactsGraphService>().Should().NotBeNull();
         provider.GetRequiredService<IGroupsGraphService>().Should().NotBeNull();
         provider.GetRequiredService<IOneDriveGraphService>().Should().NotBeNull();
+        provider.GetRequiredService<IOnlineMeetingsGraphService>().Should().NotBeNull();
         provider.GetRequiredService<IOutlookGraphService>().Should().NotBeNull();
+        provider.GetRequiredService<ISearchGraphService>().Should().NotBeNull();
         provider.GetRequiredService<ISharepointGraphService>().Should().NotBeNull();
+        provider.GetRequiredService<ISubscriptionsGraphService>().Should().NotBeNull();
         provider.GetRequiredService<ITeamsGraphService>().Should().NotBeNull();
         provider.GetRequiredService<IUsersGraphService>().Should().NotBeNull();
     }
