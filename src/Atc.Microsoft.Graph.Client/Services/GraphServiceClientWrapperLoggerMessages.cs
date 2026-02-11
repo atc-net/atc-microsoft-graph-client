@@ -95,4 +95,28 @@ public abstract partial class GraphServiceClientWrapper
     protected partial void LogPageIteratorTotalCount(
         string area,
         int count);
+
+    [LoggerMessage(
+        EventId = LoggingEventIdConstants.GraphServiceClientWrapper.GroupNotFoundById,
+        Level = LogLevel.Warning,
+        Message = "Could not find group with id: '{GroupId}': '{ErrorMessage}'.")]
+    protected partial void LogGroupNotFoundById(
+        string groupId,
+        string? errorMessage);
+
+    [LoggerMessage(
+        EventId = LoggingEventIdConstants.GraphServiceClientWrapper.UserNotFoundById,
+        Level = LogLevel.Warning,
+        Message = "Could not find user with id: '{UserId}': '{ErrorMessage}'.")]
+    protected partial void LogUserNotFoundById(
+        string userId,
+        string? errorMessage);
+
+    [LoggerMessage(
+        EventId = LoggingEventIdConstants.GraphServiceClientWrapper.ManagerNotFoundForUser,
+        Level = LogLevel.Warning,
+        Message = "Could not find manager for user with id: '{UserId}': '{ErrorMessage}'.")]
+    protected partial void LogManagerNotFoundForUser(
+        string userId,
+        string? errorMessage);
 }

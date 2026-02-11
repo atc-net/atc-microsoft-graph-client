@@ -1,59 +1,57 @@
-namespace Atc.Microsoft.Graph.Client.Services.Users;
+namespace Atc.Microsoft.Graph.Client.Services.Calendar;
 
 /// <summary>
-/// Provides operations for managing Microsoft Graph users.
+/// Provides operations for managing Microsoft Graph calendars and events.
 /// </summary>
-public interface IUsersGraphService
+public interface ICalendarGraphService
 {
     /// <summary>
-    /// Retrieves all users from the Microsoft Graph directory, with optional OData query parameters.
+    /// Retrieves all calendars for a user.
     /// </summary>
+    /// <param name="userId">The user identifier or user principal name.</param>
     /// <param name="expandQueryParameters">Optional OData $expand parameters.</param>
     /// <param name="filterQueryParameter">Optional OData $filter parameter.</param>
     /// <param name="selectQueryParameters">Optional OData $select parameters.</param>
     /// <param name="cancellationToken">A token to cancel the operation.</param>
-    /// <returns>A tuple containing the HTTP status code and a list of users.</returns>
-    Task<(HttpStatusCode StatusCode, IList<User> Data)> GetUsers(
+    /// <returns>A tuple containing the HTTP status code and a list of calendars.</returns>
+    Task<(HttpStatusCode StatusCode, IList<global::Microsoft.Graph.Models.Calendar> Data)> GetCalendarsByUserId(
+        string userId,
         List<string>? expandQueryParameters = null,
         string? filterQueryParameter = null,
         List<string>? selectQueryParameters = null,
         CancellationToken cancellationToken = default);
 
     /// <summary>
-    /// Retrieves a user by their identifier.
+    /// Retrieves all events for a user.
     /// </summary>
-    /// <param name="userId">The user identifier.</param>
-    /// <param name="expandQueryParameters">Optional OData $expand parameters.</param>
-    /// <param name="selectQueryParameters">Optional OData $select parameters.</param>
-    /// <param name="cancellationToken">A token to cancel the operation.</param>
-    /// <returns>A tuple containing the HTTP status code and the user, if found.</returns>
-    Task<(HttpStatusCode StatusCode, User? Data)> GetUserById(
-        string userId,
-        List<string>? expandQueryParameters = null,
-        List<string>? selectQueryParameters = null,
-        CancellationToken cancellationToken = default);
-
-    /// <summary>
-    /// Retrieves the manager of a user by the user identifier.
-    /// </summary>
-    /// <param name="userId">The user identifier.</param>
-    /// <param name="cancellationToken">A token to cancel the operation.</param>
-    /// <returns>A tuple containing the HTTP status code and the manager directory object, if found.</returns>
-    Task<(HttpStatusCode StatusCode, DirectoryObject? Data)> GetUserManagerByUserId(
-        string userId,
-        CancellationToken cancellationToken = default);
-
-    /// <summary>
-    /// Retrieves the group and directory role memberships of a user by the user identifier.
-    /// </summary>
-    /// <param name="userId">The user identifier.</param>
+    /// <param name="userId">The user identifier or user principal name.</param>
     /// <param name="expandQueryParameters">Optional OData $expand parameters.</param>
     /// <param name="filterQueryParameter">Optional OData $filter parameter.</param>
     /// <param name="selectQueryParameters">Optional OData $select parameters.</param>
     /// <param name="cancellationToken">A token to cancel the operation.</param>
-    /// <returns>A tuple containing the HTTP status code and a list of directory objects representing the user's memberships.</returns>
-    Task<(HttpStatusCode StatusCode, IList<DirectoryObject> Data)> GetUserMemberOfByUserId(
+    /// <returns>A tuple containing the HTTP status code and a list of events.</returns>
+    Task<(HttpStatusCode StatusCode, IList<Event> Data)> GetEventsByUserId(
         string userId,
+        List<string>? expandQueryParameters = null,
+        string? filterQueryParameter = null,
+        List<string>? selectQueryParameters = null,
+        CancellationToken cancellationToken = default);
+
+    /// <summary>
+    /// Retrieves the calendar view (events within a date range) for a user.
+    /// </summary>
+    /// <param name="userId">The user identifier or user principal name.</param>
+    /// <param name="startDateTime">The start date and time of the calendar view range.</param>
+    /// <param name="endDateTime">The end date and time of the calendar view range.</param>
+    /// <param name="expandQueryParameters">Optional OData $expand parameters.</param>
+    /// <param name="filterQueryParameter">Optional OData $filter parameter.</param>
+    /// <param name="selectQueryParameters">Optional OData $select parameters.</param>
+    /// <param name="cancellationToken">A token to cancel the operation.</param>
+    /// <returns>A tuple containing the HTTP status code and a list of events.</returns>
+    Task<(HttpStatusCode StatusCode, IList<Event> Data)> GetCalendarViewByUserId(
+        string userId,
+        DateTimeOffset startDateTime,
+        DateTimeOffset endDateTime,
         List<string>? expandQueryParameters = null,
         string? filterQueryParameter = null,
         List<string>? selectQueryParameters = null,

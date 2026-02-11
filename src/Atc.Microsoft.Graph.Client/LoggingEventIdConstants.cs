@@ -20,5 +20,10 @@ internal static class LoggingEventIdConstants
 
         public const int PageIteratorCount = 10_500;
         public const int PageIteratorTotalCount = 10_501;
+
+        public const int GroupNotFoundById = 10_600;
+
+        public const int UserNotFoundById = 10_700;
+        public const int ManagerNotFoundForUser = 10_701;
     }
 }

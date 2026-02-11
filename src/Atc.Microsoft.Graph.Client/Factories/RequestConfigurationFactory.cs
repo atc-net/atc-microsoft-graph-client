@@ -275,4 +275,309 @@ public static class RequestConfigurationFactory
                 rc.QueryParameters.Select = [.. selectQueryParameters];
             }
         };
+
+    public static Action<RequestConfiguration<GroupsRequestBuilder.GroupsRequestBuilderGetQueryParameters>> CreateForGroups(
+        List<string>? expandQueryParameters,
+        string? filterQueryParameter,
+        List<string>? selectQueryParameters) =>
+        rc =>
+        {
+            if (expandQueryParameters is not null &&
+                expandQueryParameters.Count != 0)
+            {
+                rc.QueryParameters.Expand = [.. expandQueryParameters];
+            }
+
+            if (!string.IsNullOrEmpty(filterQueryParameter))
+            {
+                rc.QueryParameters.Filter = filterQueryParameter;
+            }
+
+            if (selectQueryParameters is not null &&
+                selectQueryParameters.Count != 0)
+            {
+                rc.QueryParameters.Select = [.. selectQueryParameters];
+            }
+        };
+
+    public static Action<RequestConfiguration<global::Microsoft.Graph.Groups.Item.GroupItemRequestBuilder.GroupItemRequestBuilderGetQueryParameters>> CreateForGroupById(
+        List<string>? expandQueryParameters,
+        List<string>? selectQueryParameters) =>
+        rc =>
+        {
+            if (expandQueryParameters is not null &&
+                expandQueryParameters.Count != 0)
+            {
+                rc.QueryParameters.Expand = [.. expandQueryParameters];
+            }
+
+            if (selectQueryParameters is not null &&
+                selectQueryParameters.Count != 0)
+            {
+                rc.QueryParameters.Select = [.. selectQueryParameters];
+            }
+        };
+
+    public static Action<RequestConfiguration<global::Microsoft.Graph.Groups.Item.Members.MembersRequestBuilder.MembersRequestBuilderGetQueryParameters>> CreateForGroupMembers(
+        List<string>? expandQueryParameters,
+        string? filterQueryParameter,
+        List<string>? selectQueryParameters) =>
+        rc =>
+        {
+            if (expandQueryParameters is not null &&
+                expandQueryParameters.Count != 0)
+            {
+                rc.QueryParameters.Expand = [.. expandQueryParameters];
+            }
+
+            if (!string.IsNullOrEmpty(filterQueryParameter))
+            {
+                rc.QueryParameters.Filter = filterQueryParameter;
+            }
+
+            if (selectQueryParameters is not null &&
+                selectQueryParameters.Count != 0)
+            {
+                rc.QueryParameters.Select = [.. selectQueryParameters];
+            }
+        };
+
+    public static Action<RequestConfiguration<global::Microsoft.Graph.Groups.Item.Owners.OwnersRequestBuilder.OwnersRequestBuilderGetQueryParameters>> CreateForGroupOwners(
+        List<string>? expandQueryParameters,
+        string? filterQueryParameter,
+        List<string>? selectQueryParameters) =>
+        rc =>
+        {
+            if (expandQueryParameters is not null &&
+                expandQueryParameters.Count != 0)
+            {
+                rc.QueryParameters.Expand = [.. expandQueryParameters];
+            }
+
+            if (!string.IsNullOrEmpty(filterQueryParameter))
+            {
+                rc.QueryParameters.Filter = filterQueryParameter;
+            }
+
+            if (selectQueryParameters is not null &&
+                selectQueryParameters.Count != 0)
+            {
+                rc.QueryParameters.Select = [.. selectQueryParameters];
+            }
+        };
+
+    public static Action<RequestConfiguration<ChannelsRequestBuilder.ChannelsRequestBuilderGetQueryParameters>> CreateForChannels(
+        List<string>? expandQueryParameters,
+        string? filterQueryParameter,
+        List<string>? selectQueryParameters) =>
+        rc =>
+        {
+            if (expandQueryParameters is not null &&
+                expandQueryParameters.Count != 0)
+            {
+                rc.QueryParameters.Expand = [.. expandQueryParameters];
+            }
+
+            if (!string.IsNullOrEmpty(filterQueryParameter))
+            {
+                rc.QueryParameters.Filter = filterQueryParameter;
+            }
+
+            if (selectQueryParameters is not null &&
+                selectQueryParameters.Count != 0)
+            {
+                rc.QueryParameters.Select = [.. selectQueryParameters];
+            }
+        };
+
+    public static Action<RequestConfiguration<global::Microsoft.Graph.Teams.Item.Members.MembersRequestBuilder.MembersRequestBuilderGetQueryParameters>> CreateForTeamMembers(
+        List<string>? expandQueryParameters,
+        string? filterQueryParameter,
+        List<string>? selectQueryParameters) =>
+        rc =>
+        {
+            if (expandQueryParameters is not null &&
+                expandQueryParameters.Count != 0)
+            {
+                rc.QueryParameters.Expand = [.. expandQueryParameters];
+            }
+
+            if (!string.IsNullOrEmpty(filterQueryParameter))
+            {
+                rc.QueryParameters.Filter = filterQueryParameter;
+            }
+
+            if (selectQueryParameters is not null &&
+                selectQueryParameters.Count != 0)
+            {
+                rc.QueryParameters.Select = [.. selectQueryParameters];
+            }
+        };
+
+    public static Action<RequestConfiguration<global::Microsoft.Graph.Users.Item.UserItemRequestBuilder.UserItemRequestBuilderGetQueryParameters>> CreateForUserById(
+        List<string>? expandQueryParameters,
+        List<string>? selectQueryParameters) =>
+        rc =>
+        {
+            if (expandQueryParameters is not null &&
+                expandQueryParameters.Count != 0)
+            {
+                rc.QueryParameters.Expand = [.. expandQueryParameters];
+            }
+
+            if (selectQueryParameters is not null &&
+                selectQueryParameters.Count != 0)
+            {
+                rc.QueryParameters.Select = [.. selectQueryParameters];
+            }
+        };
+
+    public static Action<RequestConfiguration<MemberOfRequestBuilder.MemberOfRequestBuilderGetQueryParameters>> CreateForUserMemberOf(
+        List<string>? expandQueryParameters,
+        string? filterQueryParameter,
+        List<string>? selectQueryParameters) =>
+        rc =>
+        {
+            if (expandQueryParameters is not null &&
+                expandQueryParameters.Count != 0)
+            {
+                rc.QueryParameters.Expand = [.. expandQueryParameters];
+            }
+
+            if (!string.IsNullOrEmpty(filterQueryParameter))
+            {
+                rc.QueryParameters.Filter = filterQueryParameter;
+            }
+
+            if (selectQueryParameters is not null &&
+                selectQueryParameters.Count != 0)
+            {
+                rc.QueryParameters.Select = [.. selectQueryParameters];
+            }
+        };
+
+    public static Action<RequestConfiguration<CalendarsRequestBuilder.CalendarsRequestBuilderGetQueryParameters>> CreateForCalendars(
+        List<string>? expandQueryParameters,
+        string? filterQueryParameter,
+        List<string>? selectQueryParameters) =>
+        rc =>
+        {
+            if (expandQueryParameters is not null &&
+                expandQueryParameters.Count != 0)
+            {
+                rc.QueryParameters.Expand = [.. expandQueryParameters];
+            }
+
+            if (!string.IsNullOrEmpty(filterQueryParameter))
+            {
+                rc.QueryParameters.Filter = filterQueryParameter;
+            }
+
+            if (selectQueryParameters is not null &&
+                selectQueryParameters.Count != 0)
+            {
+                rc.QueryParameters.Select = [.. selectQueryParameters];
+            }
+        };
+
+    public static Action<RequestConfiguration<EventsRequestBuilder.EventsRequestBuilderGetQueryParameters>> CreateForEvents(
+        List<string>? expandQueryParameters,
+        string? filterQueryParameter,
+        List<string>? selectQueryParameters) =>
+        rc =>
+        {
+            if (expandQueryParameters is not null &&
+                expandQueryParameters.Count != 0)
+            {
+                rc.QueryParameters.Expand = [.. expandQueryParameters];
+            }
+
+            if (!string.IsNullOrEmpty(filterQueryParameter))
+            {
+                rc.QueryParameters.Filter = filterQueryParameter;
+            }
+
+            if (selectQueryParameters is not null &&
+                selectQueryParameters.Count != 0)
+            {
+                rc.QueryParameters.Select = [.. selectQueryParameters];
+            }
+        };
+
+    public static Action<RequestConfiguration<CalendarViewRequestBuilder.CalendarViewRequestBuilderGetQueryParameters>> CreateForCalendarView(
+        DateTimeOffset startDateTime,
+        DateTimeOffset endDateTime,
+        List<string>? expandQueryParameters,
+        string? filterQueryParameter,
+        List<string>? selectQueryParameters) =>
+        rc =>
+        {
+            rc.QueryParameters.StartDateTime = startDateTime.UtcDateTime.ToString("o");
+            rc.QueryParameters.EndDateTime = endDateTime.UtcDateTime.ToString("o");
+
+            if (expandQueryParameters is not null &&
+                expandQueryParameters.Count != 0)
+            {
+                rc.QueryParameters.Expand = [.. expandQueryParameters];
+            }
+
+            if (!string.IsNullOrEmpty(filterQueryParameter))
+            {
+                rc.QueryParameters.Filter = filterQueryParameter;
+            }
+
+            if (selectQueryParameters is not null &&
+                selectQueryParameters.Count != 0)
+            {
+                rc.QueryParameters.Select = [.. selectQueryParameters];
+            }
+        };
+
+    public static Action<RequestConfiguration<ListsRequestBuilder.ListsRequestBuilderGetQueryParameters>> CreateForLists(
+        List<string>? expandQueryParameters,
+        string? filterQueryParameter,
+        List<string>? selectQueryParameters) =>
+        rc =>
+        {
+            if (expandQueryParameters is not null &&
+                expandQueryParameters.Count != 0)
+            {
+                rc.QueryParameters.Expand = [.. expandQueryParameters];
+            }
+
+            if (!string.IsNullOrEmpty(filterQueryParameter))
+            {
+                rc.QueryParameters.Filter = filterQueryParameter;
+            }
+
+            if (selectQueryParameters is not null &&
+                selectQueryParameters.Count != 0)
+            {
+                rc.QueryParameters.Select = [.. selectQueryParameters];
+            }
+        };
+
+    public static Action<RequestConfiguration<global::Microsoft.Graph.Sites.Item.Lists.Item.Items.ItemsRequestBuilder.ItemsRequestBuilderGetQueryParameters>> CreateForListItems(
+        List<string>? expandQueryParameters,
+        string? filterQueryParameter,
+        List<string>? selectQueryParameters) =>
+        rc =>
+        {
+            if (expandQueryParameters is not null &&
+                expandQueryParameters.Count != 0)
+            {
+                rc.QueryParameters.Expand = [.. expandQueryParameters];
+            }
+
+            if (!string.IsNullOrEmpty(filterQueryParameter))
+            {
+                rc.QueryParameters.Filter = filterQueryParameter;
+            }
+
+            if (selectQueryParameters is not null &&
+                selectQueryParameters.Count != 0)
+            {
+                rc.QueryParameters.Select = [.. selectQueryParameters];
+            }
+        };
 }
