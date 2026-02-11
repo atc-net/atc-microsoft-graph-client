@@ -1,24 +1,30 @@
 # 📊 Introduction
 
-The library provides a convenient abstraction layer over the Microsoft Graph SDK, simplifying interactions with Microsoft Graph APIs. By wrapping the Microsoft Graph SDK, the library offers a consistent and simplified interface, handling complexities like paging and error handling for you.
+The library provides a convenient abstraction layer over the Microsoft Graph SDK, simplifying interactions with Microsoft Graph APIs. By wrapping the Microsoft Graph SDK, the library offers a consistent and simplified interface, handling complexities like paging, retry logic, and error handling for you.
 
 # Table of Contents
 
-- [Introduction](#introduction)
+- [Introduction](#-introduction)
 - [Table of Contents](#table-of-contents)
 - [Atc.Microsoft.Graph.Client](#atcmicrosoftgraphclient)
   - [Services](#services)
-    - [OneDriveGraphService](#onedrivegraphservice)
-    - [OutlookGraphService](#outlookgraphservice)
-    - [SharepointGraphService](#sharepointgraphservice)
-    - [TeamsGraphService](#teamsgraphservice)
-    - [UsersGraphService](#usersgraphservice)
+    - [📅 CalendarGraphService](#-calendargraphservice)
+    - [👤 ContactsGraphService](#-contactsgraphservice)
+    - [👥 GroupsGraphService](#-groupsgraphservice)
+    - [💾 OneDriveGraphService](#-onedrivegraphservice)
+    - [🎥 OnlineMeetingsGraphService](#-onlinemeetingsgraphservice)
+    - [📧 OutlookGraphService](#-outlookgraphservice)
+    - [🔍 SearchGraphService](#-searchgraphservice)
+    - [📁 SharepointGraphService](#-sharepointgraphservice)
+    - [🔔 SubscriptionsGraphService](#-subscriptionsgraphservice)
+    - [💬 TeamsGraphService](#-teamsgraphservice)
+    - [🧑‍💼 UsersGraphService](#-usersgraphservice)
   - [Wire-Up Using ServiceCollection Extensions](#wire-up-using-servicecollection-extensions)
     - [Options Available in the Extensions Class](#options-available-in-the-extensions-class)
     - [Setup with ServiceCollection](#setup-with-servicecollection)
-- [Sample Project](#sample-project)
-- [Requirements](#requirements)
-- [How to Contribute](#how-to-contribute)
+- [🚀 Sample Project](#-sample-project)
+- [⚙️ Requirements](#️-requirements)
+- [🤝 How to Contribute](#-how-to-contribute)
 
 # Atc.Microsoft.Graph.Client
 
@@ -26,27 +32,51 @@ The library provides a convenient abstraction layer over the Microsoft Graph SDK
 
 ## Services
 
-The services provided in the `Atc.Microsoft.Graph.Client` package are designed to facilitate seamless interaction with various Microsoft services through the Graph API. These services are essential for applications that need to manage and retrieve data efficiently from OneDrive, Outlook, SharePoint, Teams, User Management etc. By leveraging these services, applications can ensure robust and secure handling of data, integrating comprehensive functionalities directly into the application's workflow. Each service supports efficient querying of data, supporting expand, filter, and select query parameters to tailor the data retrieval process.
+The services provided in the `Atc.Microsoft.Graph.Client` package are designed to facilitate seamless interaction with various Microsoft services through the Graph API. These services are essential for applications that need to manage and retrieve data efficiently from Calendar, Contacts, OneDrive, Outlook, SharePoint, Teams, User Management and more. By leveraging these services, applications can ensure robust and secure handling of data, integrating comprehensive functionalities directly into the application's workflow. Each service supports efficient querying of data, supporting expand, filter, and select query parameters to tailor the data retrieval process.
 
-### OneDriveGraphService
+### 📅 CalendarGraphService
+
+The `ICalendarGraphService` provides operations for managing user calendars and events via the Microsoft Graph API. It supports retrieving calendars, listing events, and querying calendar views within a specified date range.
+
+### 👤 ContactsGraphService
+
+The `IContactsGraphService` provides full CRUD operations for managing user contacts. It supports listing contacts with OData query parameters, retrieving individual contacts by ID, creating new contacts, updating existing contacts, and deleting contacts.
+
+### 👥 GroupsGraphService
+
+The `IGroupsGraphService` provides operations for managing Azure AD groups. It supports listing groups, retrieving individual groups by ID, and querying group members and owners.
+
+### 💾 OneDriveGraphService
 
 The `IOneDriveGraphService` is essential for applications that require efficient management of OneDrive resources, including retrieving and managing drives and drive items, tracking changes with delta tokens, and downloading files. This service ensures robust and secure handling of OneDrive data, integrating OneDrive capabilities directly into the application's workflow.
 
-### OutlookGraphService
+### 🎥 OnlineMeetingsGraphService
 
-The `IOutlookGraphService` is essential for applications that need to manage and retrieve Outlook mail data, such as mail folders, messages, and file attachments. It enables efficient querying of mail folders and messages, supports the use of delta tokens for tracking changes, and ensures secure handling of email data, enhancing email management within the application's ecosystem.
+The `IOnlineMeetingsGraphService` provides full CRUD operations for managing online meetings. It supports listing meetings for a user, retrieving individual meetings by ID, creating new meetings, updating existing meetings, and deleting meetings.
 
-### SharepointGraphService
+### 📧 OutlookGraphService
 
-The `ISharepointGraphService` is essential for applications that need to manage SharePoint sites and subscriptions effectively. It provides capabilities for retrieving site information, setting up and managing subscriptions, and handling subscription renewals and deletions, ensuring robust and efficient integration of SharePoint functionalities within the application's environment.
+The `IOutlookGraphService` provides operations for interacting with Outlook mail. It supports retrieving mail folders, messages, and file attachments, with delta tracking for incremental sync. It also provides mail write operations including sending mail, creating and sending draft messages, replying to messages, replying all, and forwarding messages.
 
-### TeamsGraphService
+### 🔍 SearchGraphService
 
-The `ITeamsGraphService` is essential for applications that need to retrieve and manage information about Teams. It allows for efficient querying of Teams data, enhancing collaboration and communication capabilities within the application's ecosystem.
+The `ISearchGraphService` provides a pass-through to the Microsoft Graph Search API. It accepts a `QueryPostRequestBody` and returns search results, enabling full-text search across Microsoft 365 content.
 
-### UsersGraphService
+### 📁 SharepointGraphService
 
-The `IUsersGraphService` is essential for applications that need to retrieve and manage information about users. It allows for efficient querying of user data, ensuring robust and efficient integration of user management functionalities within the application's environment.
+The `ISharepointGraphService` provides operations for managing SharePoint sites, lists, and list items. It supports retrieving sites, listing SharePoint lists for a site, and querying list items.
+
+### 🔔 SubscriptionsGraphService
+
+The `ISubscriptionsGraphService` provides operations for managing Microsoft Graph webhook subscriptions. It supports listing active subscriptions, creating new subscriptions, renewing subscriptions with updated expiration dates, and deleting subscriptions.
+
+### 💬 TeamsGraphService
+
+The `ITeamsGraphService` provides operations for retrieving and managing information about Teams, including listing teams, querying channels, and managing team members.
+
+### 🧑‍💼 UsersGraphService
+
+The `IUsersGraphService` provides operations for retrieving and managing user information, including listing users, retrieving individual users by ID, querying user group memberships, and looking up user managers.
 
 ## Wire-Up Using ServiceCollection Extensions
 
