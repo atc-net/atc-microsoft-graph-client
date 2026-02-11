@@ -20,38 +20,6 @@ public interface ISharepointGraphService
         CancellationToken cancellationToken = default);
 
     /// <summary>
-    /// Creates a webhook subscription for change notifications on a resource.
-    /// </summary>
-    /// <param name="subscription">The subscription configuration to create.</param>
-    /// <param name="cancellationToken">A token to cancel the operation.</param>
-    /// <returns>A tuple containing the HTTP status code and the created subscription's identifier.</returns>
-    Task<(HttpStatusCode StatusCode, Guid? SubscriptionId)> SetupSubscription(
-        Subscription subscription,
-        CancellationToken cancellationToken = default);
-
-    /// <summary>
-    /// Renews an existing webhook subscription with a new expiration date.
-    /// </summary>
-    /// <param name="subscriptionId">The subscription identifier to renew.</param>
-    /// <param name="expirationDate">The new expiration date for the subscription.</param>
-    /// <param name="cancellationToken">A token to cancel the operation.</param>
-    /// <returns>A tuple containing the HTTP status code and whether the renewal succeeded.</returns>
-    Task<(HttpStatusCode StatusCode, bool Succeeded)> RenewSubscription(
-        Guid subscriptionId,
-        DateTimeOffset expirationDate,
-        CancellationToken cancellationToken = default);
-
-    /// <summary>
-    /// Deletes a webhook subscription. Returns success if the subscription does not exist.
-    /// </summary>
-    /// <param name="subscriptionId">The subscription identifier to delete.</param>
-    /// <param name="cancellationToken">A token to cancel the operation.</param>
-    /// <returns>A tuple containing the HTTP status code and whether the deletion succeeded.</returns>
-    Task<(HttpStatusCode StatusCode, bool Succeeded)> DeleteSubscription(
-        Guid subscriptionId,
-        CancellationToken cancellationToken = default);
-
-    /// <summary>
     /// Retrieves all SharePoint lists for a given site, with optional OData query parameters.
     /// </summary>
     /// <param name="siteId">The site identifier.</param>
@@ -60,7 +28,7 @@ public interface ISharepointGraphService
     /// <param name="selectQueryParameters">Optional OData $select parameters.</param>
     /// <param name="cancellationToken">A token to cancel the operation.</param>
     /// <returns>A tuple containing the HTTP status code and a list of lists.</returns>
-    Task<(HttpStatusCode StatusCode, IList<global::Microsoft.Graph.Models.List> Data)> GetListsBySiteId(
+    Task<(HttpStatusCode StatusCode, IList<List> Data)> GetListsBySiteId(
         string siteId,
         List<string>? expandQueryParameters = null,
         string? filterQueryParameter = null,

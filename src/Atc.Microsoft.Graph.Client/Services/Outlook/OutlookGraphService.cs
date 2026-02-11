@@ -341,6 +341,206 @@ public sealed class OutlookGraphService : GraphServiceClientWrapper, IOutlookGra
         }
     }
 
+    public async Task<(HttpStatusCode StatusCode, bool Succeeded)> SendMail(
+        string userId,
+        Message message,
+        bool saveToSentItems = true,
+        CancellationToken cancellationToken = default)
+    {
+        ArgumentNullException.ThrowIfNull(message);
+
+        try
+        {
+            await ResiliencePipeline.ExecuteAsync(
+                async ct => await Client.Users[userId].SendMail.PostAsync(
+                    new SendMailPostRequestBody
+                    {
+                        Message = message,
+                        SaveToSentItems = saveToSentItems,
+                    },
+                    cancellationToken: ct),
+                cancellationToken);
+
+            return (HttpStatusCode.OK, true);
+        }
+        catch (ODataError odataError)
+        {
+            LogMailSendFailed(userId, odataError.Error?.Message);
+            return (HttpStatusCode.InternalServerError, false);
+        }
+        catch (Exception ex)
+        {
+            LogMailSendFailed(userId, ex.GetLastInnerMessage());
+            return (HttpStatusCode.InternalServerError, false);
+        }
+    }
+
+    public async Task<(HttpStatusCode StatusCode, Message? Data)> CreateDraftMessage(
+        string userId,
+        Message message,
+        CancellationToken cancellationToken = default)
+    {
+        ArgumentNullException.ThrowIfNull(message);
+
+        try
+        {
+            Message? result = null;
+
+            await ResiliencePipeline.ExecuteAsync(
+                async ct =>
+                {
+                    result = await Client
+                        .Users[userId]
+                        .Messages
+                        .PostAsync(message, cancellationToken: ct);
+                    return result;
+                },
+                cancellationToken);
+
+            return result is not null
+                ? (HttpStatusCode.Created, result)
+                : (HttpStatusCode.InternalServerError, null);
+        }
+        catch (ODataError odataError)
+        {
+            LogMailDraftCreationFailed(userId, odataError.Error?.Message);
+            return (HttpStatusCode.InternalServerError, null);
+        }
+        catch (Exception ex)
+        {
+            LogMailDraftCreationFailed(userId, ex.GetLastInnerMessage());
+            return (HttpStatusCode.InternalServerError, null);
+        }
+    }
+
+    public async Task<(HttpStatusCode StatusCode, bool Succeeded)> SendDraftMessage(
+        string userId,
+        string messageId,
+        CancellationToken cancellationToken = default)
+    {
+        try
+        {
+            await ResiliencePipeline.ExecuteAsync(
+                async ct => await Client.Users[userId].Messages[messageId].Send.PostAsync(cancellationToken: ct),
+                cancellationToken);
+
+            return (HttpStatusCode.OK, true);
+        }
+        catch (ODataError odataError)
+        {
+            LogMailDraftSendFailed(userId, messageId, odataError.Error?.Message);
+            return (HttpStatusCode.InternalServerError, false);
+        }
+        catch (Exception ex)
+        {
+            LogMailDraftSendFailed(userId, messageId, ex.GetLastInnerMessage());
+            return (HttpStatusCode.InternalServerError, false);
+        }
+    }
+
+    public async Task<(HttpStatusCode StatusCode, bool Succeeded)> ReplyToMessage(
+        string userId,
+        string messageId,
+        string comment,
+        Message? responseMessage = null,
+        CancellationToken cancellationToken = default)
+    {
+        try
+        {
+            await ResiliencePipeline.ExecuteAsync(
+                async ct => await Client.Users[userId].Messages[messageId].Reply.PostAsync(
+                    new ReplyPostRequestBody
+                    {
+                        Comment = comment,
+                        Message = responseMessage,
+                    },
+                    cancellationToken: ct),
+                cancellationToken);
+
+            return (HttpStatusCode.OK, true);
+        }
+        catch (ODataError odataError)
+        {
+            LogReplyToMessageFailed(userId, messageId, odataError.Error?.Message);
+            return (HttpStatusCode.InternalServerError, false);
+        }
+        catch (Exception ex)
+        {
+            LogReplyToMessageFailed(userId, messageId, ex.GetLastInnerMessage());
+            return (HttpStatusCode.InternalServerError, false);
+        }
+    }
+
+    public async Task<(HttpStatusCode StatusCode, bool Succeeded)> ReplyAllToMessage(
+        string userId,
+        string messageId,
+        string comment,
+        Message? responseMessage = null,
+        CancellationToken cancellationToken = default)
+    {
+        try
+        {
+            await ResiliencePipeline.ExecuteAsync(
+                async ct => await Client.Users[userId].Messages[messageId].ReplyAll.PostAsync(
+                    new ReplyAllPostRequestBody
+                    {
+                        Comment = comment,
+                        Message = responseMessage,
+                    },
+                    cancellationToken: ct),
+                cancellationToken);
+
+            return (HttpStatusCode.OK, true);
+        }
+        catch (ODataError odataError)
+        {
+            LogReplyToMessageFailed(userId, messageId, odataError.Error?.Message);
+            return (HttpStatusCode.InternalServerError, false);
+        }
+        catch (Exception ex)
+        {
+            LogReplyToMessageFailed(userId, messageId, ex.GetLastInnerMessage());
+            return (HttpStatusCode.InternalServerError, false);
+        }
+    }
+
+    public async Task<(HttpStatusCode StatusCode, bool Succeeded)> ForwardMessage(
+        string userId,
+        string messageId,
+        string comment,
+        List<Recipient> toRecipients,
+        Message? forwardMessage = null,
+        CancellationToken cancellationToken = default)
+    {
+        ArgumentNullException.ThrowIfNull(toRecipients);
+
+        try
+        {
+            await ResiliencePipeline.ExecuteAsync(
+                async ct => await Client.Users[userId].Messages[messageId].Forward.PostAsync(
+                    new ForwardPostRequestBody
+                    {
+                        Comment = comment,
+                        ToRecipients = toRecipients,
+                        Message = forwardMessage,
+                    },
+                    cancellationToken: ct),
+                cancellationToken);
+
+            return (HttpStatusCode.OK, true);
+        }
+        catch (ODataError odataError)
+        {
+            LogForwardMessageFailed(userId, messageId, odataError.Error?.Message);
+            return (HttpStatusCode.InternalServerError, false);
+        }
+        catch (Exception ex)
+        {
+            LogForwardMessageFailed(userId, messageId, ex.GetLastInnerMessage());
+            return (HttpStatusCode.InternalServerError, false);
+        }
+    }
+
     private async Task<(HttpStatusCode StatusCode, IList<Message> Data, string? DeltaToken)> GetMessagesByUserIdAndFolderIdWithoutDeltaToken(
         string userId,
         string folderId,

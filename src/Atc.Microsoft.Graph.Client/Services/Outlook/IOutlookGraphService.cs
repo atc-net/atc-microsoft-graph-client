@@ -93,4 +93,42 @@ public interface IOutlookGraphService
         string? filterQueryParameter = null,
         List<string>? selectQueryParameters = null,
         CancellationToken cancellationToken = default);
+
+    Task<(HttpStatusCode StatusCode, bool Succeeded)> SendMail(
+        string userId,
+        Message message,
+        bool saveToSentItems = true,
+        CancellationToken cancellationToken = default);
+
+    Task<(HttpStatusCode StatusCode, Message? Data)> CreateDraftMessage(
+        string userId,
+        Message message,
+        CancellationToken cancellationToken = default);
+
+    Task<(HttpStatusCode StatusCode, bool Succeeded)> SendDraftMessage(
+        string userId,
+        string messageId,
+        CancellationToken cancellationToken = default);
+
+    Task<(HttpStatusCode StatusCode, bool Succeeded)> ReplyToMessage(
+        string userId,
+        string messageId,
+        string comment,
+        Message? responseMessage = null,
+        CancellationToken cancellationToken = default);
+
+    Task<(HttpStatusCode StatusCode, bool Succeeded)> ReplyAllToMessage(
+        string userId,
+        string messageId,
+        string comment,
+        Message? responseMessage = null,
+        CancellationToken cancellationToken = default);
+
+    Task<(HttpStatusCode StatusCode, bool Succeeded)> ForwardMessage(
+        string userId,
+        string messageId,
+        string comment,
+        List<Recipient> toRecipients,
+        Message? forwardMessage = null,
+        CancellationToken cancellationToken = default);
 }
