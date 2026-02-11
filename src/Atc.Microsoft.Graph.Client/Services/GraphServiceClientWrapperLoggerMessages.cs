@@ -119,4 +119,131 @@ public abstract partial class GraphServiceClientWrapper
     protected partial void LogManagerNotFoundForUser(
         string userId,
         string? errorMessage);
+
+    [LoggerMessage(
+        EventId = LoggingEventIdConstants.GraphServiceClientWrapper.MailSendFailed,
+        Level = LogLevel.Error,
+        Message = "Failed to send mail for user '{UserId}': '{ErrorMessage}'.")]
+    protected partial void LogMailSendFailed(
+        string userId,
+        string? errorMessage);
+
+    [LoggerMessage(
+        EventId = LoggingEventIdConstants.GraphServiceClientWrapper.MailDraftCreationFailed,
+        Level = LogLevel.Error,
+        Message = "Failed to create draft message for user '{UserId}': '{ErrorMessage}'.")]
+    protected partial void LogMailDraftCreationFailed(
+        string userId,
+        string? errorMessage);
+
+    [LoggerMessage(
+        EventId = LoggingEventIdConstants.GraphServiceClientWrapper.MailDraftSendFailed,
+        Level = LogLevel.Error,
+        Message = "Failed to send draft message '{MessageId}' for user '{UserId}': '{ErrorMessage}'.")]
+    protected partial void LogMailDraftSendFailed(
+        string userId,
+        string messageId,
+        string? errorMessage);
+
+    [LoggerMessage(
+        EventId = LoggingEventIdConstants.GraphServiceClientWrapper.ReplyToMessageFailed,
+        Level = LogLevel.Error,
+        Message = "Failed to reply to message '{MessageId}' for user '{UserId}': '{ErrorMessage}'.")]
+    protected partial void LogReplyToMessageFailed(
+        string userId,
+        string messageId,
+        string? errorMessage);
+
+    [LoggerMessage(
+        EventId = LoggingEventIdConstants.GraphServiceClientWrapper.ForwardMessageFailed,
+        Level = LogLevel.Error,
+        Message = "Failed to forward message '{MessageId}' for user '{UserId}': '{ErrorMessage}'.")]
+    protected partial void LogForwardMessageFailed(
+        string userId,
+        string messageId,
+        string? errorMessage);
+
+    [LoggerMessage(
+        EventId = LoggingEventIdConstants.GraphServiceClientWrapper.OnlineMeetingNotFoundById,
+        Level = LogLevel.Warning,
+        Message = "Could not find online meeting with id '{MeetingId}' for user '{UserId}': '{ErrorMessage}'.")]
+    protected partial void LogOnlineMeetingNotFoundById(
+        string userId,
+        string meetingId,
+        string? errorMessage);
+
+    [LoggerMessage(
+        EventId = LoggingEventIdConstants.GraphServiceClientWrapper.OnlineMeetingCreationFailed,
+        Level = LogLevel.Error,
+        Message = "Failed to create online meeting for user '{UserId}': '{ErrorMessage}'.")]
+    protected partial void LogOnlineMeetingCreationFailed(
+        string userId,
+        string? errorMessage);
+
+    [LoggerMessage(
+        EventId = LoggingEventIdConstants.GraphServiceClientWrapper.OnlineMeetingUpdateFailed,
+        Level = LogLevel.Error,
+        Message = "Failed to update online meeting '{MeetingId}' for user '{UserId}': '{ErrorMessage}'.")]
+    protected partial void LogOnlineMeetingUpdateFailed(
+        string userId,
+        string meetingId,
+        string? errorMessage);
+
+    [LoggerMessage(
+        EventId = LoggingEventIdConstants.GraphServiceClientWrapper.OnlineMeetingDeletionFailed,
+        Level = LogLevel.Error,
+        Message = "Failed to delete online meeting '{MeetingId}' for user '{UserId}': '{ErrorMessage}'.")]
+    protected partial void LogOnlineMeetingDeletionFailed(
+        string userId,
+        string meetingId,
+        string? errorMessage);
+
+    [LoggerMessage(
+        EventId = LoggingEventIdConstants.GraphServiceClientWrapper.ContactNotFoundById,
+        Level = LogLevel.Warning,
+        Message = "Could not find contact with id '{ContactId}' for user '{UserId}': '{ErrorMessage}'.")]
+    protected partial void LogContactNotFoundById(
+        string userId,
+        string contactId,
+        string? errorMessage);
+
+    [LoggerMessage(
+        EventId = LoggingEventIdConstants.GraphServiceClientWrapper.ContactCreationFailed,
+        Level = LogLevel.Error,
+        Message = "Failed to create contact for user '{UserId}': '{ErrorMessage}'.")]
+    protected partial void LogContactCreationFailed(
+        string userId,
+        string? errorMessage);
+
+    [LoggerMessage(
+        EventId = LoggingEventIdConstants.GraphServiceClientWrapper.ContactUpdateFailed,
+        Level = LogLevel.Error,
+        Message = "Failed to update contact '{ContactId}' for user '{UserId}': '{ErrorMessage}'.")]
+    protected partial void LogContactUpdateFailed(
+        string userId,
+        string contactId,
+        string? errorMessage);
+
+    [LoggerMessage(
+        EventId = LoggingEventIdConstants.GraphServiceClientWrapper.ContactDeletionFailed,
+        Level = LogLevel.Error,
+        Message = "Failed to delete contact '{ContactId}' for user '{UserId}': '{ErrorMessage}'.")]
+    protected partial void LogContactDeletionFailed(
+        string userId,
+        string contactId,
+        string? errorMessage);
+
+    [LoggerMessage(
+        EventId = LoggingEventIdConstants.GraphServiceClientWrapper.SubscriptionListFailed,
+        Level = LogLevel.Error,
+        Message = "Failed to retrieve subscriptions: '{ErrorMessage}'.")]
+    protected partial void LogSubscriptionListFailed(
+        string? errorMessage);
+
+    [LoggerMessage(
+        EventId = LoggingEventIdConstants.GraphServiceClientWrapper.SearchQueryFailed,
+        Level = LogLevel.Error,
+        Message = "Failed to execute search query: '{ErrorMessage}'.")]
+    protected partial void LogSearchQueryFailed(
+        string? errorMessage);
 }

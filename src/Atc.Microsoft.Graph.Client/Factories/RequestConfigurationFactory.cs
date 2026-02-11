@@ -557,6 +557,90 @@ public static class RequestConfigurationFactory
             }
         };
 
+    public static Action<RequestConfiguration<ContactsRequestBuilder.ContactsRequestBuilderGetQueryParameters>> CreateForContacts(
+        List<string>? expandQueryParameters,
+        string? filterQueryParameter,
+        List<string>? selectQueryParameters) =>
+        rc =>
+        {
+            if (expandQueryParameters is not null &&
+                expandQueryParameters.Count != 0)
+            {
+                rc.QueryParameters.Expand = [.. expandQueryParameters];
+            }
+
+            if (!string.IsNullOrEmpty(filterQueryParameter))
+            {
+                rc.QueryParameters.Filter = filterQueryParameter;
+            }
+
+            if (selectQueryParameters is not null &&
+                selectQueryParameters.Count != 0)
+            {
+                rc.QueryParameters.Select = [.. selectQueryParameters];
+            }
+        };
+
+    public static Action<RequestConfiguration<global::Microsoft.Graph.Users.Item.Contacts.Item.ContactItemRequestBuilder.ContactItemRequestBuilderGetQueryParameters>> CreateForContactById(
+        List<string>? expandQueryParameters,
+        List<string>? selectQueryParameters) =>
+        rc =>
+        {
+            if (expandQueryParameters is not null &&
+                expandQueryParameters.Count != 0)
+            {
+                rc.QueryParameters.Expand = [.. expandQueryParameters];
+            }
+
+            if (selectQueryParameters is not null &&
+                selectQueryParameters.Count != 0)
+            {
+                rc.QueryParameters.Select = [.. selectQueryParameters];
+            }
+        };
+
+    public static Action<RequestConfiguration<OnlineMeetingsRequestBuilder.OnlineMeetingsRequestBuilderGetQueryParameters>> CreateForOnlineMeetings(
+        List<string>? expandQueryParameters,
+        string? filterQueryParameter,
+        List<string>? selectQueryParameters) =>
+        rc =>
+        {
+            if (expandQueryParameters is not null &&
+                expandQueryParameters.Count != 0)
+            {
+                rc.QueryParameters.Expand = [.. expandQueryParameters];
+            }
+
+            if (!string.IsNullOrEmpty(filterQueryParameter))
+            {
+                rc.QueryParameters.Filter = filterQueryParameter;
+            }
+
+            if (selectQueryParameters is not null &&
+                selectQueryParameters.Count != 0)
+            {
+                rc.QueryParameters.Select = [.. selectQueryParameters];
+            }
+        };
+
+    public static Action<RequestConfiguration<global::Microsoft.Graph.Users.Item.OnlineMeetings.Item.OnlineMeetingItemRequestBuilder.OnlineMeetingItemRequestBuilderGetQueryParameters>> CreateForOnlineMeetingById(
+        List<string>? expandQueryParameters,
+        List<string>? selectQueryParameters) =>
+        rc =>
+        {
+            if (expandQueryParameters is not null &&
+                expandQueryParameters.Count != 0)
+            {
+                rc.QueryParameters.Expand = [.. expandQueryParameters];
+            }
+
+            if (selectQueryParameters is not null &&
+                selectQueryParameters.Count != 0)
+            {
+                rc.QueryParameters.Select = [.. selectQueryParameters];
+            }
+        };
+
     public static Action<RequestConfiguration<global::Microsoft.Graph.Sites.Item.Lists.Item.Items.ItemsRequestBuilder.ItemsRequestBuilderGetQueryParameters>> CreateForListItems(
         List<string>? expandQueryParameters,
         string? filterQueryParameter,

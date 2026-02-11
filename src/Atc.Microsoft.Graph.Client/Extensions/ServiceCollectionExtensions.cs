@@ -91,14 +91,22 @@ public static class ServiceCollectionExtensions
     {
         services.AddGraphService<ICalendarGraphService, CalendarGraphService>(
             (loggerFactory, graphServiceClient) => new CalendarGraphService(loggerFactory, graphServiceClient));
+        services.AddGraphService<IContactsGraphService, ContactsGraphService>(
+            (loggerFactory, graphServiceClient) => new ContactsGraphService(loggerFactory, graphServiceClient));
         services.AddGraphService<IGroupsGraphService, GroupsGraphService>(
             (loggerFactory, graphServiceClient) => new GroupsGraphService(loggerFactory, graphServiceClient));
         services.AddGraphService<IOneDriveGraphService, OneDriveGraphService>(
             (loggerFactory, graphServiceClient) => new OneDriveGraphService(loggerFactory, graphServiceClient));
+        services.AddGraphService<IOnlineMeetingsGraphService, OnlineMeetingsGraphService>(
+            (loggerFactory, graphServiceClient) => new OnlineMeetingsGraphService(loggerFactory, graphServiceClient));
         services.AddGraphService<IOutlookGraphService, OutlookGraphService>(
             (loggerFactory, graphServiceClient) => new OutlookGraphService(loggerFactory, graphServiceClient));
+        services.AddGraphService<ISearchGraphService, SearchGraphService>(
+            (loggerFactory, graphServiceClient) => new SearchGraphService(loggerFactory, graphServiceClient));
         services.AddGraphService<ISharepointGraphService, SharepointGraphService>(
             (loggerFactory, graphServiceClient) => new SharepointGraphService(loggerFactory, graphServiceClient));
+        services.AddGraphService<ISubscriptionsGraphService, SubscriptionsGraphService>(
+            (loggerFactory, graphServiceClient) => new SubscriptionsGraphService(loggerFactory, graphServiceClient));
         services.AddGraphService<ITeamsGraphService, TeamsGraphService>(
             (loggerFactory, graphServiceClient) => new TeamsGraphService(loggerFactory, graphServiceClient));
         services.AddGraphService<IUsersGraphService, UsersGraphService>(
