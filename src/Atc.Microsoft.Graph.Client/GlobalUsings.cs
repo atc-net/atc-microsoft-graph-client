@@ -42,7 +42,6 @@ global using Microsoft.Graph.Users.Item.Messages.Item.Attachments;
 global using Microsoft.Graph.Users.Item.Messages.Item.Forward;
 global using Microsoft.Graph.Users.Item.Messages.Item.Reply;
 global using Microsoft.Graph.Users.Item.Messages.Item.ReplyAll;
-global using Microsoft.Graph.Users.Item.Messages.Item.Send;
 global using Microsoft.Graph.Users.Item.OnlineMeetings;
 global using Microsoft.Graph.Users.Item.SendMail;
 global using Microsoft.Kiota.Abstractions;

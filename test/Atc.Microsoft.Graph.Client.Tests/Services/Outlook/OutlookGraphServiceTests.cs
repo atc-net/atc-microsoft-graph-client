@@ -205,4 +205,296 @@ public sealed class OutlookGraphServiceTests : IDisposable
         statusCode.Should().Be(HttpStatusCode.OK);
         data.Should().BeEmpty();
     }
+
+    [Fact]
+    public Task SendMail_ThrowsOnNullMessage()
+    {
+        // Act
+        var act = () => sut.SendMail(
+            "user-id",
+            message: null!,
+            cancellationToken: TestContext.Current.CancellationToken);
+
+        // Assert
+        return act.Should().ThrowAsync<ArgumentNullException>();
+    }
+
+    [Fact]
+    public async Task SendMail_ODataError_ReturnsInternalServerError()
+    {
+        // Arrange
+        var message = new Message { Subject = "Test" };
+        var odataError = new ODataError { Error = new MainError { Message = "Error" } };
+        requestAdapter
+            .When(x => x.SendNoContentAsync(
+                Arg.Any<RequestInformation>(),
+                Arg.Any<Dictionary<string, ParsableFactory<IParsable>>>(),
+                Arg.Any<CancellationToken>()))
+            .Do(_ => throw odataError);
+
+        // Act
+        var (statusCode, succeeded) = await sut.SendMail(
+            "user-id",
+            message,
+            cancellationToken: TestContext.Current.CancellationToken);
+
+        // Assert
+        statusCode.Should().Be(HttpStatusCode.InternalServerError);
+        succeeded.Should().BeFalse();
+    }
+
+    [Fact]
+    public async Task SendMail_Success_ReturnsOk()
+    {
+        // Arrange
+        var message = new Message { Subject = "Test" };
+
+        // Act
+        var (statusCode, succeeded) = await sut.SendMail(
+            "user-id",
+            message,
+            cancellationToken: TestContext.Current.CancellationToken);
+
+        // Assert
+        statusCode.Should().Be(HttpStatusCode.OK);
+        succeeded.Should().BeTrue();
+    }
+
+    [Fact]
+    public Task CreateDraftMessage_ThrowsOnNull()
+    {
+        // Act
+        var act = () => sut.CreateDraftMessage(
+            "user-id",
+            message: null!,
+            cancellationToken: TestContext.Current.CancellationToken);
+
+        // Assert
+        return act.Should().ThrowAsync<ArgumentNullException>();
+    }
+
+    [Fact]
+    public async Task CreateDraftMessage_ODataError_ReturnsInternalServerError()
+    {
+        // Arrange
+        var message = new Message { Subject = "Draft" };
+        var odataError = new ODataError { Error = new MainError { Message = "Error" } };
+        requestAdapter
+            .SendAsync(
+                Arg.Any<RequestInformation>(),
+                Arg.Any<ParsableFactory<Message>>(),
+                Arg.Any<Dictionary<string, ParsableFactory<IParsable>>>(),
+                Arg.Any<CancellationToken>())
+            .ThrowsAsyncForAnyArgs(odataError);
+
+        // Act
+        var (statusCode, data) = await sut.CreateDraftMessage(
+            "user-id",
+            message,
+            cancellationToken: TestContext.Current.CancellationToken);
+
+        // Assert
+        statusCode.Should().Be(HttpStatusCode.InternalServerError);
+        data.Should().BeNull();
+    }
+
+    [Fact]
+    public async Task CreateDraftMessage_Success_ReturnsCreated()
+    {
+        // Arrange
+        var message = new Message { Subject = "Draft" };
+        var createdMessage = new Message { Id = "new-id", Subject = "Draft" };
+        requestAdapter
+            .SendAsync(
+                Arg.Any<RequestInformation>(),
+                Arg.Any<ParsableFactory<Message>>(),
+                Arg.Any<Dictionary<string, ParsableFactory<IParsable>>>(),
+                Arg.Any<CancellationToken>())
+            .Returns(createdMessage);
+
+        // Act
+        var (statusCode, data) = await sut.CreateDraftMessage(
+            "user-id",
+            message,
+            cancellationToken: TestContext.Current.CancellationToken);
+
+        // Assert
+        statusCode.Should().Be(HttpStatusCode.Created);
+        data.Should().NotBeNull();
+    }
+
+    [Fact]
+    public async Task SendDraftMessage_ODataError_ReturnsInternalServerError()
+    {
+        // Arrange
+        var odataError = new ODataError { Error = new MainError { Message = "Error" } };
+        requestAdapter
+            .When(x => x.SendNoContentAsync(
+                Arg.Any<RequestInformation>(),
+                Arg.Any<Dictionary<string, ParsableFactory<IParsable>>>(),
+                Arg.Any<CancellationToken>()))
+            .Do(_ => throw odataError);
+
+        // Act
+        var (statusCode, succeeded) = await sut.SendDraftMessage(
+            "user-id",
+            "message-id",
+            cancellationToken: TestContext.Current.CancellationToken);
+
+        // Assert
+        statusCode.Should().Be(HttpStatusCode.InternalServerError);
+        succeeded.Should().BeFalse();
+    }
+
+    [Fact]
+    public async Task SendDraftMessage_Success_ReturnsOk()
+    {
+        // Act
+        var (statusCode, succeeded) = await sut.SendDraftMessage(
+            "user-id",
+            "message-id",
+            cancellationToken: TestContext.Current.CancellationToken);
+
+        // Assert
+        statusCode.Should().Be(HttpStatusCode.OK);
+        succeeded.Should().BeTrue();
+    }
+
+    [Fact]
+    public async Task ReplyToMessage_ODataError_ReturnsInternalServerError()
+    {
+        // Arrange
+        var odataError = new ODataError { Error = new MainError { Message = "Error" } };
+        requestAdapter
+            .When(x => x.SendNoContentAsync(
+                Arg.Any<RequestInformation>(),
+                Arg.Any<Dictionary<string, ParsableFactory<IParsable>>>(),
+                Arg.Any<CancellationToken>()))
+            .Do(_ => throw odataError);
+
+        // Act
+        var (statusCode, succeeded) = await sut.ReplyToMessage(
+            "user-id",
+            "message-id",
+            "Thanks!",
+            cancellationToken: TestContext.Current.CancellationToken);
+
+        // Assert
+        statusCode.Should().Be(HttpStatusCode.InternalServerError);
+        succeeded.Should().BeFalse();
+    }
+
+    [Fact]
+    public async Task ReplyToMessage_Success_ReturnsOk()
+    {
+        // Act
+        var (statusCode, succeeded) = await sut.ReplyToMessage(
+            "user-id",
+            "message-id",
+            "Thanks!",
+            cancellationToken: TestContext.Current.CancellationToken);
+
+        // Assert
+        statusCode.Should().Be(HttpStatusCode.OK);
+        succeeded.Should().BeTrue();
+    }
+
+    [Fact]
+    public async Task ReplyAllToMessage_ODataError_ReturnsInternalServerError()
+    {
+        // Arrange
+        var odataError = new ODataError { Error = new MainError { Message = "Error" } };
+        requestAdapter
+            .When(x => x.SendNoContentAsync(
+                Arg.Any<RequestInformation>(),
+                Arg.Any<Dictionary<string, ParsableFactory<IParsable>>>(),
+                Arg.Any<CancellationToken>()))
+            .Do(_ => throw odataError);
+
+        // Act
+        var (statusCode, succeeded) = await sut.ReplyAllToMessage(
+            "user-id",
+            "message-id",
+            "Thanks all!",
+            cancellationToken: TestContext.Current.CancellationToken);
+
+        // Assert
+        statusCode.Should().Be(HttpStatusCode.InternalServerError);
+        succeeded.Should().BeFalse();
+    }
+
+    [Fact]
+    public async Task ReplyAllToMessage_Success_ReturnsOk()
+    {
+        // Act
+        var (statusCode, succeeded) = await sut.ReplyAllToMessage(
+            "user-id",
+            "message-id",
+            "Thanks all!",
+            cancellationToken: TestContext.Current.CancellationToken);
+
+        // Assert
+        statusCode.Should().Be(HttpStatusCode.OK);
+        succeeded.Should().BeTrue();
+    }
+
+    [Fact]
+    public Task ForwardMessage_ThrowsOnNullRecipients()
+    {
+        // Act
+        var act = () => sut.ForwardMessage(
+            "user-id",
+            "message-id",
+            "FYI",
+            toRecipients: null!,
+            cancellationToken: TestContext.Current.CancellationToken);
+
+        // Assert
+        return act.Should().ThrowAsync<ArgumentNullException>();
+    }
+
+    [Fact]
+    public async Task ForwardMessage_ODataError_ReturnsInternalServerError()
+    {
+        // Arrange
+        var recipients = new List<Recipient> { new() { EmailAddress = new EmailAddress { Address = "test@test.com" } } };
+        var odataError = new ODataError { Error = new MainError { Message = "Error" } };
+        requestAdapter
+            .When(x => x.SendNoContentAsync(
+                Arg.Any<RequestInformation>(),
+                Arg.Any<Dictionary<string, ParsableFactory<IParsable>>>(),
+                Arg.Any<CancellationToken>()))
+            .Do(_ => throw odataError);
+
+        // Act
+        var (statusCode, succeeded) = await sut.ForwardMessage(
+            "user-id",
+            "message-id",
+            "FYI",
+            recipients,
+            cancellationToken: TestContext.Current.CancellationToken);
+
+        // Assert
+        statusCode.Should().Be(HttpStatusCode.InternalServerError);
+        succeeded.Should().BeFalse();
+    }
+
+    [Fact]
+    public async Task ForwardMessage_Success_ReturnsOk()
+    {
+        // Arrange
+        var recipients = new List<Recipient> { new() { EmailAddress = new EmailAddress { Address = "test@test.com" } } };
+
+        // Act
+        var (statusCode, succeeded) = await sut.ForwardMessage(
+            "user-id",
+            "message-id",
+            "FYI",
+            recipients,
+            cancellationToken: TestContext.Current.CancellationToken);
+
+        // Assert
+        statusCode.Should().Be(HttpStatusCode.OK);
+        succeeded.Should().BeTrue();
+    }
 }
