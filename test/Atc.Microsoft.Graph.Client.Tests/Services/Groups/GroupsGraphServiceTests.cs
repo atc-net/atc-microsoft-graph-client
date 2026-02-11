@@ -1,20 +1,20 @@
-namespace Atc.Microsoft.Graph.Client.Tests.Services.Users;
+namespace Atc.Microsoft.Graph.Client.Tests.Services.Groups;
 
-public sealed class UsersGraphServiceTests : IDisposable
+public sealed class GroupsGraphServiceTests : IDisposable
 {
     private readonly IRequestAdapter requestAdapter;
     private readonly GraphServiceClient graphServiceClient;
     private readonly NullLoggerFactory loggerFactory;
-    private readonly UsersGraphService sut;
+    private readonly GroupsGraphService sut;
 
-    public UsersGraphServiceTests()
+    public GroupsGraphServiceTests()
     {
         requestAdapter = Substitute.For<IRequestAdapter>();
         requestAdapter.BaseUrl.Returns("https://graph.microsoft.com/v1.0");
 
         graphServiceClient = new GraphServiceClient(requestAdapter);
         loggerFactory = new NullLoggerFactory();
-        sut = new UsersGraphService(loggerFactory, graphServiceClient);
+        sut = new GroupsGraphService(loggerFactory, graphServiceClient);
     }
 
     public void Dispose()
@@ -24,19 +24,19 @@ public sealed class UsersGraphServiceTests : IDisposable
     }
 
     [Fact]
-    public async Task GetUsers_NullResponse_ReturnsInternalServerError()
+    public async Task GetGroups_NullResponse_ReturnsInternalServerError()
     {
         // Arrange
         requestAdapter
             .SendAsync(
                 Arg.Any<RequestInformation>(),
-                Arg.Any<ParsableFactory<UserCollectionResponse>>(),
+                Arg.Any<ParsableFactory<GroupCollectionResponse>>(),
                 Arg.Any<Dictionary<string, ParsableFactory<IParsable>>>(),
                 Arg.Any<CancellationToken>())
-            .Returns((UserCollectionResponse)null!);
+            .Returns((GroupCollectionResponse)null!);
 
         // Act
-        var (statusCode, data) = await sut.GetUsers(cancellationToken: TestContext.Current.CancellationToken);
+        var (statusCode, data) = await sut.GetGroups(cancellationToken: TestContext.Current.CancellationToken);
 
         // Assert
         statusCode.Should().Be(HttpStatusCode.InternalServerError);
@@ -44,7 +44,7 @@ public sealed class UsersGraphServiceTests : IDisposable
     }
 
     [Fact]
-    public async Task GetUsers_ODataError_ReturnsInternalServerError()
+    public async Task GetGroups_ODataError_ReturnsInternalServerError()
     {
         // Arrange
         var odataError = new ODataError { Error = new MainError { Message = "Test error" } };
@@ -52,13 +52,13 @@ public sealed class UsersGraphServiceTests : IDisposable
         requestAdapter
             .SendAsync(
                 Arg.Any<RequestInformation>(),
-                Arg.Any<ParsableFactory<UserCollectionResponse>>(),
+                Arg.Any<ParsableFactory<GroupCollectionResponse>>(),
                 Arg.Any<Dictionary<string, ParsableFactory<IParsable>>>(),
                 Arg.Any<CancellationToken>())
             .ThrowsAsyncForAnyArgs(odataError);
 
         // Act
-        var (statusCode, data) = await sut.GetUsers(cancellationToken: TestContext.Current.CancellationToken);
+        var (statusCode, data) = await sut.GetGroups(cancellationToken: TestContext.Current.CancellationToken);
 
         // Assert
         statusCode.Should().Be(HttpStatusCode.InternalServerError);
@@ -66,21 +66,21 @@ public sealed class UsersGraphServiceTests : IDisposable
     }
 
     [Fact]
-    public async Task GetUsers_EmptyResponse_ReturnsOkWithEmptyList()
+    public async Task GetGroups_EmptyResponse_ReturnsOkWithEmptyList()
     {
         // Arrange
-        var response = new UserCollectionResponse { Value = [] };
+        var response = new GroupCollectionResponse { Value = [] };
 
         requestAdapter
             .SendAsync(
                 Arg.Any<RequestInformation>(),
-                Arg.Any<ParsableFactory<UserCollectionResponse>>(),
+                Arg.Any<ParsableFactory<GroupCollectionResponse>>(),
                 Arg.Any<Dictionary<string, ParsableFactory<IParsable>>>(),
                 Arg.Any<CancellationToken>())
             .Returns(response);
 
         // Act
-        var (statusCode, data) = await sut.GetUsers(cancellationToken: TestContext.Current.CancellationToken);
+        var (statusCode, data) = await sut.GetGroups(cancellationToken: TestContext.Current.CancellationToken);
 
         // Assert
         statusCode.Should().Be(HttpStatusCode.OK);
@@ -88,27 +88,27 @@ public sealed class UsersGraphServiceTests : IDisposable
     }
 
     [Fact]
-    public async Task GetUsers_WithUsers_ReturnsOkWithData()
+    public async Task GetGroups_WithGroups_ReturnsOkWithData()
     {
         // Arrange
-        var users = new List<User>
+        var groups = new List<Group>
         {
-            new() { Id = "1", DisplayName = "User 1" },
-            new() { Id = "2", DisplayName = "User 2" },
+            new() { Id = "1", DisplayName = "Group 1" },
+            new() { Id = "2", DisplayName = "Group 2" },
         };
 
-        var response = new UserCollectionResponse { Value = users };
+        var response = new GroupCollectionResponse { Value = groups };
 
         requestAdapter
             .SendAsync(
                 Arg.Any<RequestInformation>(),
-                Arg.Any<ParsableFactory<UserCollectionResponse>>(),
+                Arg.Any<ParsableFactory<GroupCollectionResponse>>(),
                 Arg.Any<Dictionary<string, ParsableFactory<IParsable>>>(),
                 Arg.Any<CancellationToken>())
             .Returns(response);
 
         // Act
-        var (statusCode, data) = await sut.GetUsers(cancellationToken: TestContext.Current.CancellationToken);
+        var (statusCode, data) = await sut.GetGroups(cancellationToken: TestContext.Current.CancellationToken);
 
         // Assert
         statusCode.Should().Be(HttpStatusCode.OK);
@@ -116,40 +116,20 @@ public sealed class UsersGraphServiceTests : IDisposable
     }
 
     [Fact]
-    public async Task GetUsers_GenericException_ReturnsInternalServerError()
+    public async Task GetGroupById_NullResult_ReturnsNotFound()
     {
         // Arrange
         requestAdapter
             .SendAsync(
                 Arg.Any<RequestInformation>(),
-                Arg.Any<ParsableFactory<UserCollectionResponse>>(),
+                Arg.Any<ParsableFactory<Group>>(),
                 Arg.Any<Dictionary<string, ParsableFactory<IParsable>>>(),
                 Arg.Any<CancellationToken>())
-            .ThrowsAsyncForAnyArgs(new InvalidOperationException("Something broke"));
+            .Returns((Group)null!);
 
         // Act
-        var (statusCode, data) = await sut.GetUsers(cancellationToken: TestContext.Current.CancellationToken);
-
-        // Assert
-        statusCode.Should().Be(HttpStatusCode.InternalServerError);
-        data.Should().BeEmpty();
-    }
-
-    [Fact]
-    public async Task GetUserById_NullResult_ReturnsNotFound()
-    {
-        // Arrange
-        requestAdapter
-            .SendAsync(
-                Arg.Any<RequestInformation>(),
-                Arg.Any<ParsableFactory<User>>(),
-                Arg.Any<Dictionary<string, ParsableFactory<IParsable>>>(),
-                Arg.Any<CancellationToken>())
-            .Returns((User)null!);
-
-        // Act
-        var (statusCode, data) = await sut.GetUserById(
-            "user-1",
+        var (statusCode, data) = await sut.GetGroupById(
+            "group-id",
             cancellationToken: TestContext.Current.CancellationToken);
 
         // Assert
@@ -158,7 +138,7 @@ public sealed class UsersGraphServiceTests : IDisposable
     }
 
     [Fact]
-    public async Task GetUserById_ODataError_ReturnsInternalServerError()
+    public async Task GetGroupById_ODataError_ReturnsInternalServerError()
     {
         // Arrange
         var odataError = new ODataError { Error = new MainError { Message = "Not found" } };
@@ -166,14 +146,14 @@ public sealed class UsersGraphServiceTests : IDisposable
         requestAdapter
             .SendAsync(
                 Arg.Any<RequestInformation>(),
-                Arg.Any<ParsableFactory<User>>(),
+                Arg.Any<ParsableFactory<Group>>(),
                 Arg.Any<Dictionary<string, ParsableFactory<IParsable>>>(),
                 Arg.Any<CancellationToken>())
             .ThrowsAsyncForAnyArgs(odataError);
 
         // Act
-        var (statusCode, data) = await sut.GetUserById(
-            "user-1",
+        var (statusCode, data) = await sut.GetGroupById(
+            "group-id",
             cancellationToken: TestContext.Current.CancellationToken);
 
         // Assert
@@ -182,20 +162,20 @@ public sealed class UsersGraphServiceTests : IDisposable
     }
 
     [Fact]
-    public async Task GetUserById_GenericException_ReturnsInternalServerError()
+    public async Task GetGroupById_GenericException_ReturnsInternalServerError()
     {
         // Arrange
         requestAdapter
             .SendAsync(
                 Arg.Any<RequestInformation>(),
-                Arg.Any<ParsableFactory<User>>(),
+                Arg.Any<ParsableFactory<Group>>(),
                 Arg.Any<Dictionary<string, ParsableFactory<IParsable>>>(),
                 Arg.Any<CancellationToken>())
             .ThrowsAsyncForAnyArgs(new InvalidOperationException("Something broke"));
 
         // Act
-        var (statusCode, data) = await sut.GetUserById(
-            "user-1",
+        var (statusCode, data) = await sut.GetGroupById(
+            "group-id",
             cancellationToken: TestContext.Current.CancellationToken);
 
         // Assert
@@ -204,104 +184,32 @@ public sealed class UsersGraphServiceTests : IDisposable
     }
 
     [Fact]
-    public async Task GetUserById_WithUser_ReturnsOkWithData()
+    public async Task GetGroupById_WithGroup_ReturnsOkWithData()
     {
         // Arrange
-        var user = new User { Id = "user-1", DisplayName = "Test User" };
+        var group = new Group { Id = "group-1", DisplayName = "Test Group" };
 
         requestAdapter
             .SendAsync(
                 Arg.Any<RequestInformation>(),
-                Arg.Any<ParsableFactory<User>>(),
+                Arg.Any<ParsableFactory<Group>>(),
                 Arg.Any<Dictionary<string, ParsableFactory<IParsable>>>(),
                 Arg.Any<CancellationToken>())
-            .Returns(user);
+            .Returns(group);
 
         // Act
-        var (statusCode, data) = await sut.GetUserById(
-            "user-1",
+        var (statusCode, data) = await sut.GetGroupById(
+            "group-1",
             cancellationToken: TestContext.Current.CancellationToken);
 
         // Assert
         statusCode.Should().Be(HttpStatusCode.OK);
         data.Should().NotBeNull();
-        data!.Id.Should().Be("user-1");
-        data.DisplayName.Should().Be("Test User");
+        data!.Id.Should().Be("group-1");
     }
 
     [Fact]
-    public async Task GetUserManagerByUserId_NullResult_ReturnsNotFound()
-    {
-        // Arrange
-        requestAdapter
-            .SendAsync(
-                Arg.Any<RequestInformation>(),
-                Arg.Any<ParsableFactory<DirectoryObject>>(),
-                Arg.Any<Dictionary<string, ParsableFactory<IParsable>>>(),
-                Arg.Any<CancellationToken>())
-            .Returns((DirectoryObject)null!);
-
-        // Act
-        var (statusCode, data) = await sut.GetUserManagerByUserId(
-            "user-1",
-            cancellationToken: TestContext.Current.CancellationToken);
-
-        // Assert
-        statusCode.Should().Be(HttpStatusCode.NotFound);
-        data.Should().BeNull();
-    }
-
-    [Fact]
-    public async Task GetUserManagerByUserId_ODataError_ReturnsInternalServerError()
-    {
-        // Arrange
-        var odataError = new ODataError { Error = new MainError { Message = "Not found" } };
-
-        requestAdapter
-            .SendAsync(
-                Arg.Any<RequestInformation>(),
-                Arg.Any<ParsableFactory<DirectoryObject>>(),
-                Arg.Any<Dictionary<string, ParsableFactory<IParsable>>>(),
-                Arg.Any<CancellationToken>())
-            .ThrowsAsyncForAnyArgs(odataError);
-
-        // Act
-        var (statusCode, data) = await sut.GetUserManagerByUserId(
-            "user-1",
-            cancellationToken: TestContext.Current.CancellationToken);
-
-        // Assert
-        statusCode.Should().Be(HttpStatusCode.InternalServerError);
-        data.Should().BeNull();
-    }
-
-    [Fact]
-    public async Task GetUserManagerByUserId_WithManager_ReturnsOkWithData()
-    {
-        // Arrange
-        var manager = new DirectoryObject { Id = "mgr-1" };
-
-        requestAdapter
-            .SendAsync(
-                Arg.Any<RequestInformation>(),
-                Arg.Any<ParsableFactory<DirectoryObject>>(),
-                Arg.Any<Dictionary<string, ParsableFactory<IParsable>>>(),
-                Arg.Any<CancellationToken>())
-            .Returns(manager);
-
-        // Act
-        var (statusCode, data) = await sut.GetUserManagerByUserId(
-            "user-1",
-            cancellationToken: TestContext.Current.CancellationToken);
-
-        // Assert
-        statusCode.Should().Be(HttpStatusCode.OK);
-        data.Should().NotBeNull();
-        data!.Id.Should().Be("mgr-1");
-    }
-
-    [Fact]
-    public async Task GetUserMemberOfByUserId_NullResponse_ReturnsInternalServerError()
+    public async Task GetGroupMembersByGroupId_NullResponse_ReturnsInternalServerError()
     {
         // Arrange
         requestAdapter
@@ -313,8 +221,8 @@ public sealed class UsersGraphServiceTests : IDisposable
             .Returns((DirectoryObjectCollectionResponse)null!);
 
         // Act
-        var (statusCode, data) = await sut.GetUserMemberOfByUserId(
-            "user-1",
+        var (statusCode, data) = await sut.GetGroupMembersByGroupId(
+            "group-id",
             cancellationToken: TestContext.Current.CancellationToken);
 
         // Assert
@@ -323,7 +231,7 @@ public sealed class UsersGraphServiceTests : IDisposable
     }
 
     [Fact]
-    public async Task GetUserMemberOfByUserId_ODataError_ReturnsInternalServerError()
+    public async Task GetGroupMembersByGroupId_ODataError_ReturnsInternalServerError()
     {
         // Arrange
         var odataError = new ODataError { Error = new MainError { Message = "Test error" } };
@@ -337,8 +245,8 @@ public sealed class UsersGraphServiceTests : IDisposable
             .ThrowsAsyncForAnyArgs(odataError);
 
         // Act
-        var (statusCode, data) = await sut.GetUserMemberOfByUserId(
-            "user-1",
+        var (statusCode, data) = await sut.GetGroupMembersByGroupId(
+            "group-id",
             cancellationToken: TestContext.Current.CancellationToken);
 
         // Assert
@@ -347,7 +255,7 @@ public sealed class UsersGraphServiceTests : IDisposable
     }
 
     [Fact]
-    public async Task GetUserMemberOfByUserId_EmptyResponse_ReturnsOkWithEmptyList()
+    public async Task GetGroupMembersByGroupId_EmptyResponse_ReturnsOkWithEmptyList()
     {
         // Arrange
         var response = new DirectoryObjectCollectionResponse { Value = [] };
@@ -361,8 +269,8 @@ public sealed class UsersGraphServiceTests : IDisposable
             .Returns(response);
 
         // Act
-        var (statusCode, data) = await sut.GetUserMemberOfByUserId(
-            "user-1",
+        var (statusCode, data) = await sut.GetGroupMembersByGroupId(
+            "group-id",
             cancellationToken: TestContext.Current.CancellationToken);
 
         // Assert
@@ -371,15 +279,16 @@ public sealed class UsersGraphServiceTests : IDisposable
     }
 
     [Fact]
-    public async Task GetUserMemberOfByUserId_WithData_ReturnsOkWithData()
+    public async Task GetGroupMembersByGroupId_WithMembers_ReturnsOkWithData()
     {
         // Arrange
-        var directoryObjects = new List<DirectoryObject>
+        var members = new List<DirectoryObject>
         {
-            new() { Id = "1" },
+            new() { Id = "member-1" },
+            new() { Id = "member-2" },
         };
 
-        var response = new DirectoryObjectCollectionResponse { Value = directoryObjects };
+        var response = new DirectoryObjectCollectionResponse { Value = members };
 
         requestAdapter
             .SendAsync(
@@ -390,12 +299,112 @@ public sealed class UsersGraphServiceTests : IDisposable
             .Returns(response);
 
         // Act
-        var (statusCode, data) = await sut.GetUserMemberOfByUserId(
-            "user-1",
+        var (statusCode, data) = await sut.GetGroupMembersByGroupId(
+            "group-id",
             cancellationToken: TestContext.Current.CancellationToken);
 
         // Assert
         statusCode.Should().Be(HttpStatusCode.OK);
-        data.Should().HaveCount(1);
+        data.Should().HaveCount(2);
+    }
+
+    [Fact]
+    public async Task GetGroupOwnersByGroupId_NullResponse_ReturnsInternalServerError()
+    {
+        // Arrange
+        requestAdapter
+            .SendAsync(
+                Arg.Any<RequestInformation>(),
+                Arg.Any<ParsableFactory<DirectoryObjectCollectionResponse>>(),
+                Arg.Any<Dictionary<string, ParsableFactory<IParsable>>>(),
+                Arg.Any<CancellationToken>())
+            .Returns((DirectoryObjectCollectionResponse)null!);
+
+        // Act
+        var (statusCode, data) = await sut.GetGroupOwnersByGroupId(
+            "group-id",
+            cancellationToken: TestContext.Current.CancellationToken);
+
+        // Assert
+        statusCode.Should().Be(HttpStatusCode.InternalServerError);
+        data.Should().BeEmpty();
+    }
+
+    [Fact]
+    public async Task GetGroupOwnersByGroupId_ODataError_ReturnsInternalServerError()
+    {
+        // Arrange
+        var odataError = new ODataError { Error = new MainError { Message = "Test error" } };
+
+        requestAdapter
+            .SendAsync(
+                Arg.Any<RequestInformation>(),
+                Arg.Any<ParsableFactory<DirectoryObjectCollectionResponse>>(),
+                Arg.Any<Dictionary<string, ParsableFactory<IParsable>>>(),
+                Arg.Any<CancellationToken>())
+            .ThrowsAsyncForAnyArgs(odataError);
+
+        // Act
+        var (statusCode, data) = await sut.GetGroupOwnersByGroupId(
+            "group-id",
+            cancellationToken: TestContext.Current.CancellationToken);
+
+        // Assert
+        statusCode.Should().Be(HttpStatusCode.InternalServerError);
+        data.Should().BeEmpty();
+    }
+
+    [Fact]
+    public async Task GetGroupOwnersByGroupId_EmptyResponse_ReturnsOkWithEmptyList()
+    {
+        // Arrange
+        var response = new DirectoryObjectCollectionResponse { Value = [] };
+
+        requestAdapter
+            .SendAsync(
+                Arg.Any<RequestInformation>(),
+                Arg.Any<ParsableFactory<DirectoryObjectCollectionResponse>>(),
+                Arg.Any<Dictionary<string, ParsableFactory<IParsable>>>(),
+                Arg.Any<CancellationToken>())
+            .Returns(response);
+
+        // Act
+        var (statusCode, data) = await sut.GetGroupOwnersByGroupId(
+            "group-id",
+            cancellationToken: TestContext.Current.CancellationToken);
+
+        // Assert
+        statusCode.Should().Be(HttpStatusCode.OK);
+        data.Should().BeEmpty();
+    }
+
+    [Fact]
+    public async Task GetGroupOwnersByGroupId_WithOwners_ReturnsOkWithData()
+    {
+        // Arrange
+        var owners = new List<DirectoryObject>
+        {
+            new() { Id = "owner-1" },
+            new() { Id = "owner-2" },
+        };
+
+        var response = new DirectoryObjectCollectionResponse { Value = owners };
+
+        requestAdapter
+            .SendAsync(
+                Arg.Any<RequestInformation>(),
+                Arg.Any<ParsableFactory<DirectoryObjectCollectionResponse>>(),
+                Arg.Any<Dictionary<string, ParsableFactory<IParsable>>>(),
+                Arg.Any<CancellationToken>())
+            .Returns(response);
+
+        // Act
+        var (statusCode, data) = await sut.GetGroupOwnersByGroupId(
+            "group-id",
+            cancellationToken: TestContext.Current.CancellationToken);
+
+        // Assert
+        statusCode.Should().Be(HttpStatusCode.OK);
+        data.Should().HaveCount(2);
     }
 }

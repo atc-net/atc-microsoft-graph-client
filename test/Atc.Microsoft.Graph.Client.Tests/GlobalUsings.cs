@@ -2,6 +2,8 @@ global using System.Net;
 global using Atc.Microsoft.Graph.Client.Extensions;
 global using Atc.Microsoft.Graph.Client.Factories;
 global using Atc.Microsoft.Graph.Client.Options;
+global using Atc.Microsoft.Graph.Client.Services.Calendar;
+global using Atc.Microsoft.Graph.Client.Services.Groups;
 global using Atc.Microsoft.Graph.Client.Services.OneDrive;
 global using Atc.Microsoft.Graph.Client.Services.Outlook;
 global using Atc.Microsoft.Graph.Client.Services.Sharepoint;

@@ -50,4 +50,38 @@ public interface ISharepointGraphService
     Task<(HttpStatusCode StatusCode, bool Succeeded)> DeleteSubscription(
         Guid subscriptionId,
         CancellationToken cancellationToken = default);
+
+    /// <summary>
+    /// Retrieves all SharePoint lists for a given site, with optional OData query parameters.
+    /// </summary>
+    /// <param name="siteId">The site identifier.</param>
+    /// <param name="expandQueryParameters">Optional OData $expand parameters.</param>
+    /// <param name="filterQueryParameter">Optional OData $filter parameter.</param>
+    /// <param name="selectQueryParameters">Optional OData $select parameters.</param>
+    /// <param name="cancellationToken">A token to cancel the operation.</param>
+    /// <returns>A tuple containing the HTTP status code and a list of lists.</returns>
+    Task<(HttpStatusCode StatusCode, IList<global::Microsoft.Graph.Models.List> Data)> GetListsBySiteId(
+        string siteId,
+        List<string>? expandQueryParameters = null,
+        string? filterQueryParameter = null,
+        List<string>? selectQueryParameters = null,
+        CancellationToken cancellationToken = default);
+
+    /// <summary>
+    /// Retrieves all list items for a given list and site, with optional OData query parameters.
+    /// </summary>
+    /// <param name="siteId">The site identifier.</param>
+    /// <param name="listId">The list identifier.</param>
+    /// <param name="expandQueryParameters">Optional OData $expand parameters.</param>
+    /// <param name="filterQueryParameter">Optional OData $filter parameter.</param>
+    /// <param name="selectQueryParameters">Optional OData $select parameters.</param>
+    /// <param name="cancellationToken">A token to cancel the operation.</param>
+    /// <returns>A tuple containing the HTTP status code and a list of list items.</returns>
+    Task<(HttpStatusCode StatusCode, IList<ListItem> Data)> GetListItemsByListIdAndSiteId(
+        string siteId,
+        string listId,
+        List<string>? expandQueryParameters = null,
+        string? filterQueryParameter = null,
+        List<string>? selectQueryParameters = null,
+        CancellationToken cancellationToken = default);
 }

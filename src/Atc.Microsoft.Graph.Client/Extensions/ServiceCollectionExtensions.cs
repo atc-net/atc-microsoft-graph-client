@@ -89,6 +89,10 @@ public static class ServiceCollectionExtensions
 
     private static void RegisterGraphServices(IServiceCollection services)
     {
+        services.AddGraphService<ICalendarGraphService, CalendarGraphService>(
+            (loggerFactory, graphServiceClient) => new CalendarGraphService(loggerFactory, graphServiceClient));
+        services.AddGraphService<IGroupsGraphService, GroupsGraphService>(
+            (loggerFactory, graphServiceClient) => new GroupsGraphService(loggerFactory, graphServiceClient));
         services.AddGraphService<IOneDriveGraphService, OneDriveGraphService>(
             (loggerFactory, graphServiceClient) => new OneDriveGraphService(loggerFactory, graphServiceClient));
         services.AddGraphService<IOutlookGraphService, OutlookGraphService>(

@@ -14,6 +14,8 @@ public sealed class ServiceCollectionExtensionsTests
         services.AddMicrosoftGraphServices(graphServiceClient);
 
         // Assert
+        services.Should().Contain(sd => sd.ServiceType == typeof(ICalendarGraphService));
+        services.Should().Contain(sd => sd.ServiceType == typeof(IGroupsGraphService));
         services.Should().Contain(sd => sd.ServiceType == typeof(IOneDriveGraphService));
         services.Should().Contain(sd => sd.ServiceType == typeof(IOutlookGraphService));
         services.Should().Contain(sd => sd.ServiceType == typeof(ISharepointGraphService));
@@ -36,6 +38,8 @@ public sealed class ServiceCollectionExtensionsTests
         Type[] expectedSingletons =
         [
             typeof(GraphServiceClient),
+            typeof(ICalendarGraphService),
+            typeof(IGroupsGraphService),
             typeof(IOneDriveGraphService),
             typeof(IOutlookGraphService),
             typeof(ISharepointGraphService),
@@ -65,6 +69,8 @@ public sealed class ServiceCollectionExtensionsTests
 
         // Assert
         using var provider = services.BuildServiceProvider();
+        provider.GetRequiredService<ICalendarGraphService>().Should().NotBeNull();
+        provider.GetRequiredService<IGroupsGraphService>().Should().NotBeNull();
         provider.GetRequiredService<IOneDriveGraphService>().Should().NotBeNull();
         provider.GetRequiredService<IOutlookGraphService>().Should().NotBeNull();
         provider.GetRequiredService<ISharepointGraphService>().Should().NotBeNull();
@@ -87,6 +93,8 @@ public sealed class ServiceCollectionExtensionsTests
 
         // Assert
         using var provider = services.BuildServiceProvider();
+        provider.GetRequiredService<ICalendarGraphService>().Should().NotBeNull();
+        provider.GetRequiredService<IGroupsGraphService>().Should().NotBeNull();
         provider.GetRequiredService<IOneDriveGraphService>().Should().NotBeNull();
         provider.GetRequiredService<IOutlookGraphService>().Should().NotBeNull();
         provider.GetRequiredService<ISharepointGraphService>().Should().NotBeNull();
