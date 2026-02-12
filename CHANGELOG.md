@@ -1,5 +1,13 @@
 # Changelog
 
+## [2.1.0](https://github.com/atc-net/atc-microsoft-graph-client/compare/v2.0.1...v2.1.0) (2026-02-12)
+
+
+### Features
+
+* add Contacts, OnlineMeetings, Search, Subscriptions services and Outlook mail write ops ([77bb8ab](https://github.com/atc-net/atc-microsoft-graph-client/commit/77bb8ab14b033968f4e732b1345e6c0fe7ad5c38))
+* add Groups and Calendar services, expand Teams, Users, and SharePoint ([7182667](https://github.com/atc-net/atc-microsoft-graph-client/commit/7182667b0b908a85d9d3fb689a79a58f9ded7546))
+
 ## [2.0.1](https://github.com/atc-net/atc-microsoft-graph-client/compare/v2.0.0...v2.0.1) (2026-02-11)
 
 
