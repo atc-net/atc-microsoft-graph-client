@@ -28,6 +28,7 @@ public sealed class SubscriptionsGraphServiceTests : IDisposable
     {
         // Arrange
         var odataError = new ODataError { Error = new MainError { Message = "Error" } };
+
         requestAdapter
             .SendAsync(
                 Arg.Any<RequestInformation>(),
@@ -72,6 +73,7 @@ public sealed class SubscriptionsGraphServiceTests : IDisposable
         // Arrange
         var subscriptions = new List<Subscription> { new() { Id = Guid.NewGuid().ToString() } };
         var response = new SubscriptionCollectionResponse { Value = subscriptions };
+
         requestAdapter
             .SendAsync(
                 Arg.Any<RequestInformation>(),
@@ -107,6 +109,7 @@ public sealed class SubscriptionsGraphServiceTests : IDisposable
         // Arrange
         var subscription = new Subscription { Resource = "sites/root" };
         var odataError = new ODataError { Error = new MainError { Message = "Error" } };
+
         requestAdapter
             .SendAsync(
                 Arg.Any<RequestInformation>(),
@@ -131,6 +134,7 @@ public sealed class SubscriptionsGraphServiceTests : IDisposable
         // Arrange
         var subscription = new Subscription { Resource = "sites/root" };
         var odataError = new ODataError { Error = new MainError { Message = "The request timed out" } };
+
         requestAdapter
             .SendAsync(
                 Arg.Any<RequestInformation>(),
@@ -156,6 +160,7 @@ public sealed class SubscriptionsGraphServiceTests : IDisposable
         var subscriptionId = Guid.NewGuid();
         var expirationDate = DateTimeOffset.UtcNow.AddDays(1);
         var odataError = new ODataError { Error = new MainError { Message = "Error" } };
+
         requestAdapter
             .SendAsync(
                 Arg.Any<RequestInformation>(),
@@ -181,6 +186,7 @@ public sealed class SubscriptionsGraphServiceTests : IDisposable
         // Arrange
         var subscriptionId = Guid.NewGuid();
         var odataError = new ODataError { Error = new MainError { Message = "Error" } };
+
         requestAdapter
             .When(x => x.SendNoContentAsync(
                 Arg.Any<RequestInformation>(),
@@ -203,11 +209,13 @@ public sealed class SubscriptionsGraphServiceTests : IDisposable
     {
         // Arrange
         var subscriptionId = Guid.NewGuid();
+
         var odataError = new ODataError
         {
             ResponseStatusCode = (int)HttpStatusCode.NotFound,
             Error = new MainError { Message = "Not found" },
         };
+
         requestAdapter
             .When(x => x.SendNoContentAsync(
                 Arg.Any<RequestInformation>(),
