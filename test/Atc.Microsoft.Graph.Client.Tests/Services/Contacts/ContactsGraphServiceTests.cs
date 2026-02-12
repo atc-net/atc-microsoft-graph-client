@@ -50,6 +50,7 @@ public sealed class ContactsGraphServiceTests : IDisposable
     {
         // Arrange
         var response = new ContactCollectionResponse { Value = [] };
+
         requestAdapter
             .SendAsync(
                 Arg.Any<RequestInformation>(),
@@ -73,6 +74,7 @@ public sealed class ContactsGraphServiceTests : IDisposable
     {
         // Arrange
         var odataError = new ODataError { Error = new MainError { Message = "Error" } };
+
         requestAdapter
             .SendAsync(
                 Arg.Any<RequestInformation>(),
@@ -97,6 +99,7 @@ public sealed class ContactsGraphServiceTests : IDisposable
         // Arrange
         var contacts = new List<Contact> { new() { Id = "1", DisplayName = "Test Contact" } };
         var response = new ContactCollectionResponse { Value = contacts };
+
         requestAdapter
             .SendAsync(
                 Arg.Any<RequestInformation>(),
@@ -124,6 +127,7 @@ public sealed class ContactsGraphServiceTests : IDisposable
             ResponseStatusCode = (int)HttpStatusCode.NotFound,
             Error = new MainError { Message = "Not found" },
         };
+
         requestAdapter
             .SendAsync(
                 Arg.Any<RequestInformation>(),
@@ -148,6 +152,7 @@ public sealed class ContactsGraphServiceTests : IDisposable
     {
         // Arrange
         var odataError = new ODataError { Error = new MainError { Message = "Error" } };
+
         requestAdapter
             .SendAsync(
                 Arg.Any<RequestInformation>(),
@@ -172,6 +177,7 @@ public sealed class ContactsGraphServiceTests : IDisposable
     {
         // Arrange
         var contact = new Contact { Id = "contact-id", DisplayName = "Test" };
+
         requestAdapter
             .SendAsync(
                 Arg.Any<RequestInformation>(),
@@ -210,6 +216,7 @@ public sealed class ContactsGraphServiceTests : IDisposable
         // Arrange
         var contact = new Contact { DisplayName = "Test" };
         var odataError = new ODataError { Error = new MainError { Message = "Error" } };
+
         requestAdapter
             .SendAsync(
                 Arg.Any<RequestInformation>(),
@@ -235,6 +242,7 @@ public sealed class ContactsGraphServiceTests : IDisposable
         // Arrange
         var contact = new Contact { DisplayName = "Test" };
         var createdContact = new Contact { Id = "new-id", DisplayName = "Test" };
+
         requestAdapter
             .SendAsync(
                 Arg.Any<RequestInformation>(),
@@ -274,6 +282,7 @@ public sealed class ContactsGraphServiceTests : IDisposable
         // Arrange
         var contact = new Contact { DisplayName = "Updated" };
         var odataError = new ODataError { Error = new MainError { Message = "Error" } };
+
         requestAdapter
             .SendAsync(
                 Arg.Any<RequestInformation>(),
@@ -300,6 +309,7 @@ public sealed class ContactsGraphServiceTests : IDisposable
         // Arrange
         var contact = new Contact { DisplayName = "Updated" };
         var updatedContact = new Contact { Id = "contact-id", DisplayName = "Updated" };
+
         requestAdapter
             .SendAsync(
                 Arg.Any<RequestInformation>(),
@@ -325,6 +335,7 @@ public sealed class ContactsGraphServiceTests : IDisposable
     {
         // Arrange
         var odataError = new ODataError { Error = new MainError { Message = "Error" } };
+
         requestAdapter
             .When(x => x.SendNoContentAsync(
                 Arg.Any<RequestInformation>(),
@@ -352,6 +363,7 @@ public sealed class ContactsGraphServiceTests : IDisposable
             ResponseStatusCode = (int)HttpStatusCode.NotFound,
             Error = new MainError { Message = "Not found" },
         };
+
         requestAdapter
             .When(x => x.SendNoContentAsync(
                 Arg.Any<RequestInformation>(),

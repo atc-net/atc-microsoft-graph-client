@@ -50,6 +50,7 @@ public sealed class OutlookGraphServiceTests : IDisposable
     {
         // Arrange
         var response = new MailFolderCollectionResponse { Value = [] };
+
         requestAdapter
             .SendAsync(
                 Arg.Any<RequestInformation>(),
@@ -73,6 +74,7 @@ public sealed class OutlookGraphServiceTests : IDisposable
     {
         // Arrange
         var odataError = new ODataError { Error = new MainError { Message = "Error" } };
+
         requestAdapter
             .SendAsync(
                 Arg.Any<RequestInformation>(),
@@ -141,6 +143,7 @@ public sealed class OutlookGraphServiceTests : IDisposable
     {
         // Arrange
         var response = new MessageCollectionResponse { Value = [] };
+
         requestAdapter
             .SendAsync(
                 Arg.Any<RequestInformation>(),
@@ -187,6 +190,7 @@ public sealed class OutlookGraphServiceTests : IDisposable
     {
         // Arrange
         var response = new AttachmentCollectionResponse { Value = [] };
+
         requestAdapter
             .SendAsync(
                 Arg.Any<RequestInformation>(),
@@ -225,6 +229,7 @@ public sealed class OutlookGraphServiceTests : IDisposable
         // Arrange
         var message = new Message { Subject = "Test" };
         var odataError = new ODataError { Error = new MainError { Message = "Error" } };
+
         requestAdapter
             .When(x => x.SendNoContentAsync(
                 Arg.Any<RequestInformation>(),
@@ -279,6 +284,7 @@ public sealed class OutlookGraphServiceTests : IDisposable
         // Arrange
         var message = new Message { Subject = "Draft" };
         var odataError = new ODataError { Error = new MainError { Message = "Error" } };
+
         requestAdapter
             .SendAsync(
                 Arg.Any<RequestInformation>(),
@@ -304,6 +310,7 @@ public sealed class OutlookGraphServiceTests : IDisposable
         // Arrange
         var message = new Message { Subject = "Draft" };
         var createdMessage = new Message { Id = "new-id", Subject = "Draft" };
+
         requestAdapter
             .SendAsync(
                 Arg.Any<RequestInformation>(),
@@ -328,6 +335,7 @@ public sealed class OutlookGraphServiceTests : IDisposable
     {
         // Arrange
         var odataError = new ODataError { Error = new MainError { Message = "Error" } };
+
         requestAdapter
             .When(x => x.SendNoContentAsync(
                 Arg.Any<RequestInformation>(),
@@ -365,6 +373,7 @@ public sealed class OutlookGraphServiceTests : IDisposable
     {
         // Arrange
         var odataError = new ODataError { Error = new MainError { Message = "Error" } };
+
         requestAdapter
             .When(x => x.SendNoContentAsync(
                 Arg.Any<RequestInformation>(),
@@ -404,6 +413,7 @@ public sealed class OutlookGraphServiceTests : IDisposable
     {
         // Arrange
         var odataError = new ODataError { Error = new MainError { Message = "Error" } };
+
         requestAdapter
             .When(x => x.SendNoContentAsync(
                 Arg.Any<RequestInformation>(),
@@ -459,6 +469,7 @@ public sealed class OutlookGraphServiceTests : IDisposable
         // Arrange
         var recipients = new List<Recipient> { new() { EmailAddress = new EmailAddress { Address = "test@test.com" } } };
         var odataError = new ODataError { Error = new MainError { Message = "Error" } };
+
         requestAdapter
             .When(x => x.SendNoContentAsync(
                 Arg.Any<RequestInformation>(),

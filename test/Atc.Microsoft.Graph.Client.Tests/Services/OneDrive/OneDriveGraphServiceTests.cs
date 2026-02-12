@@ -50,6 +50,7 @@ public sealed class OneDriveGraphServiceTests : IDisposable
     {
         // Arrange
         var response = new DriveCollectionResponse { Value = [] };
+
         requestAdapter
             .SendAsync(
                 Arg.Any<RequestInformation>(),
@@ -73,6 +74,7 @@ public sealed class OneDriveGraphServiceTests : IDisposable
     {
         // Arrange
         var odataError = new ODataError { Error = new MainError { Message = "Not found" } };
+
         requestAdapter
             .SendAsync(
                 Arg.Any<RequestInformation>(),
@@ -96,6 +98,7 @@ public sealed class OneDriveGraphServiceTests : IDisposable
     {
         // Arrange
         var drive = new Drive { Id = "drive-1" };
+
         requestAdapter
             .SendAsync(
                 Arg.Any<RequestInformation>(),
@@ -142,6 +145,7 @@ public sealed class OneDriveGraphServiceTests : IDisposable
     {
         // Arrange
         var odataError = new ODataError { Error = new MainError { Message = "Error" } };
+
         requestAdapter
             .SendAsync(
                 Arg.Any<RequestInformation>(),

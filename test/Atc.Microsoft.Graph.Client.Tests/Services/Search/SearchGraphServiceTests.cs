@@ -41,6 +41,7 @@ public sealed class SearchGraphServiceTests : IDisposable
         // Arrange
         var requestBody = new global::Microsoft.Graph.Search.Query.QueryPostRequestBody();
         var odataError = new ODataError { Error = new MainError { Message = "Error" } };
+
         requestAdapter
             .SendAsync(
                 Arg.Any<RequestInformation>(),
@@ -64,6 +65,7 @@ public sealed class SearchGraphServiceTests : IDisposable
     {
         // Arrange
         var requestBody = new global::Microsoft.Graph.Search.Query.QueryPostRequestBody();
+
         requestAdapter
             .SendAsync(
                 Arg.Any<RequestInformation>(),
@@ -88,10 +90,12 @@ public sealed class SearchGraphServiceTests : IDisposable
         // Arrange
         var requestBody = new global::Microsoft.Graph.Search.Query.QueryPostRequestBody();
         var searchResponse = new SearchResponse();
+
         var response = new global::Microsoft.Graph.Search.Query.QueryPostResponse
         {
             Value = [searchResponse],
         };
+
         requestAdapter
             .SendAsync(
                 Arg.Any<RequestInformation>(),
